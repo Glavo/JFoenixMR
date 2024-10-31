@@ -58,8 +58,8 @@ import java.util.*;
 public class JFXHighlighter {
 
     private Parent parent;
-    private HashMap<Node, List<Rectangle>> boxes = new HashMap<>();
-    private ObjectProperty<Paint> paint = new SimpleObjectProperty<>(Color.rgb(255, 0, 0, 0.4));
+    private final HashMap<Node, List<Rectangle>> boxes = new HashMap<>();
+    private final ObjectProperty<Paint> paint = new SimpleObjectProperty<>(Color.rgb(255, 0, 0, 0.4));
 
     private Method textLayoutMethod;
     private Field parentChildrenField;
@@ -120,7 +120,7 @@ public class JFXHighlighter {
 
     private class HighLightRectangle extends Rectangle{
         // add listener to remove the current rectangle if text was changed
-        private InvalidationListener listener;
+        private final InvalidationListener listener;
 
         public HighLightRectangle(Text text) {
             listener = observable -> clear(text);
@@ -144,6 +144,7 @@ public class JFXHighlighter {
         return nodes;
     }
 
+    @SuppressWarnings("unchecked")
     private ObservableList<Node> getParentChildren(Parent parent){
         try {
             return (ObservableList<Node>) parentChildrenField.get(parent);
@@ -162,9 +163,7 @@ public class JFXHighlighter {
         TextLayout textLayout = null;
         try {
             textLayout = (TextLayout) textLayoutMethod.invoke(text);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 

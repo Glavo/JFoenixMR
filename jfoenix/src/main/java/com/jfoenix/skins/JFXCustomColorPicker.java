@@ -57,17 +57,17 @@ class JFXCustomColorPicker extends Pane {
     private CubicCurveTo outerCircleCurveTo;
     private CubicCurveTo curve1To;
     private CubicCurveTo innerCircleCurveTo;
-    private ArrayList<CubicCurve> curves = new ArrayList<>();
+    private final ArrayList<CubicCurve> curves = new ArrayList<>();
 
-    private double distance = 200;
-    private double centerX = distance;
-    private double centerY = distance;
-    private double radius = 110;
+    private final double distance = 200;
+    private final double centerX = distance;
+    private final double centerY = distance;
+    private final double radius = 110;
 
-    private int shapesNumber = 13;
-    private ArrayList<RecentColorPath> shapes = new ArrayList<>();
+    private final int shapesNumber = 13;
+    private final ArrayList<RecentColorPath> shapes = new ArrayList<>();
     private CachedTransition showAnimation;
-    private JFXColorPickerUI hslColorPicker;
+    private final JFXColorPickerUI hslColorPicker;
 
     public JFXCustomColorPicker() {
         this.setPickOnBounds(false);

@@ -37,7 +37,7 @@ import javafx.scene.paint.Color;
  */
 public class JFXDepthManager {
 
-    private static DropShadow[] depth = new DropShadow[] {
+    private static final DropShadow[] depth = new DropShadow[] {
         new DropShadow(BlurType.GAUSSIAN, Color.rgb(0, 0, 0, 0), 0, 0, 0, 0),
         new DropShadow(BlurType.GAUSSIAN, Color.rgb(0, 0, 0, 0.26), 10, 0.12, -1, 2),
         new DropShadow(BlurType.GAUSSIAN, Color.rgb(0, 0, 0, 0.26), 15, 0.16, 0, 4),
@@ -52,8 +52,8 @@ public class JFXDepthManager {
      * use {@link #createMaterialNode(Node, int)} instead to generate a real shadow
      */
     public static void setDepth(Node control, int level) {
-        level = level < 0 ? 0 : level;
-        level = level > 5 ? 5 : level;
+        level = Math.max(level, 0);
+        level = Math.min(level, 5);
         control.setEffect(new DropShadow(BlurType.GAUSSIAN,
             depth[level].getColor(),
             depth[level].getRadius(),
@@ -99,8 +99,8 @@ public class JFXDepthManager {
         };
         container.getStyleClass().add("depth-container");
         container.setPickOnBounds(false);
-        level = level < 0 ? 0 : level;
-        level = level > 5 ? 5 : level;
+        level = Math.max(level, 0);
+        level = Math.min(level, 5);
         container.setEffect(new DropShadow(BlurType.GAUSSIAN,
             depth[level].getColor(),
             depth[level].getRadius(),

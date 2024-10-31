@@ -45,10 +45,10 @@ import java.util.function.Supplier;
 
 public class JFXAnimationTimer extends AnimationTimer {
 
-    private Set<AnimationHandler> animationHandlers = new HashSet<>();
+    private final Set<AnimationHandler> animationHandlers = new HashSet<>();
     private long startTime = -1;
     private boolean running = false;
-    private List<CacheMemento> caches = new ArrayList<>();
+    private final List<CacheMemento> caches = new ArrayList<>();
     private double totalElapsedMilliseconds;
 
 
@@ -62,7 +62,7 @@ public class JFXAnimationTimer extends AnimationTimer {
         }
     }
 
-    private HashMap<JFXKeyFrame, AnimationHandler> mutableFrames = new HashMap<>();
+    private final HashMap<JFXKeyFrame, AnimationHandler> mutableFrames = new HashMap<>();
 
     public void addKeyFrame(JFXKeyFrame keyFrame) throws Exception {
         if (isRunning()) {
@@ -184,14 +184,14 @@ public class JFXAnimationTimer extends AnimationTimer {
     }
 
     static class AnimationHandler {
-        private double duration;
+        private final double duration;
         private double currentDuration;
-        private Set<JFXKeyValue<?>> keyValues;
-        private Supplier<Boolean> animationCondition = null;
+        private final Set<JFXKeyValue<?>> keyValues;
+        private Supplier<Boolean> animationCondition;
         private boolean finished = false;
 
-        private HashMap<WritableValue<?>, Object> initialValuesMap = new HashMap<>();
-        private HashMap<WritableValue<?>, Object> endValuesMap = new HashMap<>();
+        private final HashMap<WritableValue<?>, Object> initialValuesMap = new HashMap<>();
+        private final HashMap<WritableValue<?>, Object> endValuesMap = new HashMap<>();
 
         AnimationHandler(Duration duration, Supplier<Boolean> animationCondition, Set<JFXKeyValue<?>> keyValues) {
             this.duration = duration.toMillis();
@@ -202,7 +202,7 @@ public class JFXAnimationTimer extends AnimationTimer {
 
         public void init() {
             finished = animationCondition == null ? false : !animationCondition.get();
-            for (JFXKeyValue keyValue : keyValues) {
+            for (JFXKeyValue<?> keyValue : keyValues) {
                 if (keyValue.getTarget() != null) {
                     // replaced putIfAbsent for mobile compatibility
                     if (!initialValuesMap.containsKey(keyValue.getTarget())) {
@@ -219,8 +219,8 @@ public class JFXAnimationTimer extends AnimationTimer {
             finished = animationCondition == null ? false : !animationCondition.get();
             currentDuration = duration - (currentDuration - now);
             // update initial values
-            for (JFXKeyValue keyValue : keyValues) {
-                final WritableValue target = keyValue.getTarget();
+            for (JFXKeyValue<?> keyValue : keyValues) {
+                final WritableValue<?> target = keyValue.getTarget();
                 if (target != null) {
                     initialValuesMap.put(target, target.getValue());
                     endValuesMap.put(target, keyValue.getEndValue());
@@ -229,13 +229,14 @@ public class JFXAnimationTimer extends AnimationTimer {
         }
 
         // now in milliseconds
+        @SuppressWarnings({"unchecked", "rawtypes"})
         public void animate(double now) {
             // if animate condition for the key frame is not met then do nothing
             if (finished) {
                 return;
             }
             if (now <= currentDuration) {
-                for (JFXKeyValue keyValue : keyValues) {
+                for (JFXKeyValue<?> keyValue : keyValues) {
                     if (keyValue.isValid()) {
                         final WritableValue target = keyValue.getTarget();
                         final Object endValue = endValuesMap.get(target);
@@ -245,27 +246,26 @@ public class JFXAnimationTimer extends AnimationTimer {
                     }
                 }
             } else {
-                if (!finished) {
-                    finished = true;
-                    for (JFXKeyValue keyValue : keyValues) {
-                        if (keyValue.isValid()) {
-                            final WritableValue target = keyValue.getTarget();
-                            if (target != null) {
-                                // set updated end value instead of cached
-                                final Object endValue = keyValue.getEndValue();
-                                if (endValue != null) {
-                                    target.setValue(endValue);
-                                }
+                finished = true;
+                for (JFXKeyValue<?> keyValue : keyValues) {
+                    if (keyValue.isValid()) {
+                        final WritableValue target = keyValue.getTarget();
+                        if (target != null) {
+                            // set updated end value instead of cached
+                            final Object endValue = keyValue.getEndValue();
+                            if (endValue != null) {
+                                target.setValue(endValue);
                             }
                         }
                     }
-                    currentDuration = duration;
                 }
+                currentDuration = duration;
             }
         }
 
+        @SuppressWarnings({"rawtypes", "unchecked"})
         public void applyEndValues() {
-            for (JFXKeyValue keyValue : keyValues) {
+            for (JFXKeyValue<?> keyValue : keyValues) {
                 if (keyValue.isValid()) {
                     final WritableValue target = keyValue.getTarget();
                     if (target != null) {

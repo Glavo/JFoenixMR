@@ -67,8 +67,8 @@ public class JFXCheckBoxSkin extends LabeledSkinBase<JFXCheckBox, ButtonBehavior
     private final StackPane indeterminateMark = new StackPane();
     private final JFXRippler rippler;
 
-    private Transition transition;
-    private Transition indeterminateTransition;
+    private final Transition transition;
+    private final Transition indeterminateTransition;
 
     private boolean invalid = true;
     private JFXFillTransition select;
@@ -335,7 +335,7 @@ public class JFXCheckBoxSkin extends LabeledSkinBase<JFXCheckBox, ButtonBehavior
     }
 
     private final static class CheckBoxTransition extends CachedTransition {
-        protected Node mark;
+        private final Node mark;
 
         CheckBoxTransition(Node mark) {
             super(null, new Timeline(

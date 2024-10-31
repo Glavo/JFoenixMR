@@ -85,8 +85,7 @@ public class JFXDatePicker extends DatePicker implements IFXValidatableControl {
             });
             editorNode.activeValidatorWritableProperty().bind(activeValidatorProperty());
             editor.set(editorNode);
-        } catch (NoSuchFieldException e) {
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
         }
     }
 
@@ -181,7 +180,7 @@ public class JFXDatePicker extends DatePicker implements IFXValidatableControl {
      * NOTE: to show it properly the scene root must be StackPane, or the user must set
      * the dialog parent manually using the property {{@link #dialogParentProperty()}
      */
-    private StyleableBooleanProperty overLay = new SimpleStyleableBooleanProperty(StyleableProperties.OVERLAY,
+    private final StyleableBooleanProperty overLay = new SimpleStyleableBooleanProperty(StyleableProperties.OVERLAY,
         JFXDatePicker.this,
         "overLay",
         false);
@@ -201,7 +200,7 @@ public class JFXDatePicker extends DatePicker implements IFXValidatableControl {
     /**
      * the default color used in the data picker content
      */
-    private StyleableObjectProperty<Paint> defaultColor = new SimpleStyleableObjectProperty<>(StyleableProperties.DEFAULT_COLOR,
+    private final StyleableObjectProperty<Paint> defaultColor = new SimpleStyleableObjectProperty<>(StyleableProperties.DEFAULT_COLOR,
         JFXDatePicker.this,
         "defaultColor",
         Color.valueOf(

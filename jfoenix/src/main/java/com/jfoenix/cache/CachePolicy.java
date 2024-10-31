@@ -41,7 +41,7 @@ public interface CachePolicy<T extends Node> {
 
     CachePolicy<Node> CACHE = new CachePolicy<Node>() {
 
-        private WeakHashMap<Node, CacheMemento> cache = new WeakHashMap<>();
+        private final WeakHashMap<Node, CacheMemento> cache = new WeakHashMap<>();
 
         @Override
         public void cache(Node node) {
@@ -76,7 +76,7 @@ public interface CachePolicy<T extends Node> {
 
     CachePolicy<Pane> IMAGE = new CachePolicy<Pane>() {
 
-        private WeakHashMap<Node, ArrayList<Node>> cache = new WeakHashMap<>();
+        private final WeakHashMap<Node, ArrayList<Node>> cache = new WeakHashMap<>();
 
         @Override
         public void cache(Pane node) {

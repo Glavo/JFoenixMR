@@ -173,7 +173,6 @@ public class SVGGlyphLoader {
      *
      * @param url of the svg icon
      * @return SVGGLyph node
-     * @throws IOException
      */
     public static SVGGlyph loadGlyph(URL url) throws IOException {
         String urlString = url.toString();
@@ -231,9 +230,9 @@ public class SVGGlyphLoader {
     }
 
     private static final class SVGGlyphBuilder {
-        private int glyphId;
-        private String name;
-        private String svgPathContent;
+        private final int glyphId;
+        private final String name;
+        private final String svgPathContent;
 
         SVGGlyphBuilder(int glyphId, String name, String svgPathContent) {
             this.glyphId = glyphId;

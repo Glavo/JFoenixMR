@@ -49,12 +49,13 @@ import java.time.LocalTime;
  */
 public class JFXTimePickerSkin extends ComboBoxPopupControl<LocalTime> {
 
-    private JFXTimePicker jfxTimePicker;
+    private final JFXTimePicker jfxTimePicker;
     // displayNode is the same as editorNode
     private TextField displayNode;
     private JFXTimePickerContent content;
     private JFXDialog dialog;
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public JFXTimePickerSkin(JFXTimePicker timePicker) {
         super(timePicker, new JFXTimePickerBehavior(timePicker));
         this.jfxTimePicker = timePicker;
@@ -62,7 +63,7 @@ public class JFXTimePickerSkin extends ComboBoxPopupControl<LocalTime> {
             Field helper = timePicker.focusedProperty().getClass().getSuperclass()
                 .getDeclaredField("helper");
             helper.setAccessible(true);
-            ExpressionHelper value = (ExpressionHelper) helper.get(timePicker.focusedProperty());
+            ExpressionHelper<?> value = (ExpressionHelper<?>) helper.get(timePicker.focusedProperty());
             Field changeListenersField = value.getClass().getDeclaredField("changeListeners");
             changeListenersField.setAccessible(true);
             ChangeListener[] changeListeners = (ChangeListener[]) changeListenersField.get(value);
@@ -73,9 +74,7 @@ public class JFXTimePickerSkin extends ComboBoxPopupControl<LocalTime> {
                     break;
                 }
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
         // add focus listener on editor node

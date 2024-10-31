@@ -58,7 +58,7 @@ public class SVGGlyph extends Pane {
     private final String name;
     private static final int DEFAULT_PREF_SIZE = 64;
     private double widthHeightRatio = 1;
-    private ObjectProperty<Paint> fill = new SimpleObjectProperty<>();
+    private final ObjectProperty<Paint> fill = new SimpleObjectProperty<>();
 
     public SVGGlyph() {
         this(null);
@@ -140,9 +140,6 @@ public class SVGGlyph extends Pane {
 
     /**
      * resize the svg to a certain width and height
-     *
-     * @param width
-     * @param height
      */
     public void setSize(double width, double height) {
         this.setMinSize(StackPane.USE_PREF_SIZE, StackPane.USE_PREF_SIZE);
@@ -190,7 +187,7 @@ public class SVGGlyph extends Pane {
     /**
      * specifies the radius of the spinner node, by default it's set to -1 (USE_COMPUTED_SIZE)
      */
-    private StyleableDoubleProperty size = new SimpleStyleableDoubleProperty(StyleableProperties.SIZE,
+    private final StyleableDoubleProperty size = new SimpleStyleableDoubleProperty(StyleableProperties.SIZE,
         SVGGlyph.this,
         "size",
         Region.USE_COMPUTED_SIZE) {

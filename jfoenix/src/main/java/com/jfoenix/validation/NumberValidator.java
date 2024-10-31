@@ -51,7 +51,7 @@ public class NumberValidator extends ValidatorBase {
                     return null;
                 }
                 string = string.trim();
-                if (string.length() < 1) {
+                if (string.isEmpty()) {
                     return null;
                 }
                 // Create and configure the parser to be used

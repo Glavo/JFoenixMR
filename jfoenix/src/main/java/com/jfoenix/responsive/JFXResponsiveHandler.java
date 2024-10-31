@@ -73,15 +73,12 @@ public class JFXResponsiveHandler {
      * @param pseudoClass css class for certain device
      */
     private void scanAllNodes(Parent parent, PseudoClass pseudoClass) {
-        parent.getChildrenUnmodifiable().addListener(new ListChangeListener<Node>() {
-            @Override
-            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Node> c) {
-                while (c.next()) {
-                    if (!c.wasPermutated() && !c.wasUpdated()) {
-                        for (Node addedNode : c.getAddedSubList()) {
-                            if (addedNode instanceof Parent) {
-                                scanAllNodes((Parent) addedNode, pseudoClass);
-                            }
+        parent.getChildrenUnmodifiable().addListener((ListChangeListener<Node>) c -> {
+            while (c.next()) {
+                if (!c.wasPermutated() && !c.wasUpdated()) {
+                    for (Node addedNode : c.getAddedSubList()) {
+                        if (addedNode instanceof Parent) {
+                            scanAllNodes((Parent) addedNode, pseudoClass);
                         }
                     }
                 }
@@ -89,15 +86,12 @@ public class JFXResponsiveHandler {
         });
         for (Node component : parent.getChildrenUnmodifiable()) {
             if (component instanceof Pane) {
-                ((Pane) component).getChildren().addListener(new ListChangeListener<Node>() {
-                    @Override
-                    public void onChanged(javafx.collections.ListChangeListener.Change<? extends Node> c) {
-                        while (c.next()) {
-                            if (!c.wasPermutated() && !c.wasUpdated()) {
-                                for (Node addedNode : c.getAddedSubList()) {
-                                    if (addedNode instanceof Parent) {
-                                        scanAllNodes((Parent) addedNode, pseudoClass);
-                                    }
+                ((Pane) component).getChildren().addListener((ListChangeListener<Node>) c -> {
+                    while (c.next()) {
+                        if (!c.wasPermutated() && !c.wasUpdated()) {
+                            for (Node addedNode : c.getAddedSubList()) {
+                                if (addedNode instanceof Parent) {
+                                    scanAllNodes((Parent) addedNode, pseudoClass);
                                 }
                             }
                         }

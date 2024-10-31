@@ -29,8 +29,6 @@ import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
 import javafx.css.StyleableProperty;
-import javafx.geometry.Pos;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -58,8 +56,8 @@ public class JFXComboBoxListViewSkin<T> extends ComboBoxListViewSkin<T> {
     private boolean invalid = true;
 
     private Text promptText;
-    private ValidationPane<JFXComboBox> errorContainer;
-    private PromptLinesWrapper<JFXComboBox> linesWrapper;
+    private final ValidationPane<JFXComboBox<?>> errorContainer;
+    private final PromptLinesWrapper<JFXComboBox<?>> linesWrapper;
 
     protected final ObjectProperty<Paint> promptTextFill = new StyleableObjectProperty<Paint>(Color.GRAY) {
         @Override
@@ -73,7 +71,7 @@ public class JFXComboBoxListViewSkin<T> extends ComboBoxListViewSkin<T> {
         }
 
         @Override
-        public CssMetaData<JFXComboBox, Paint> getCssMetaData() {
+        public CssMetaData<JFXComboBox<?>, Paint> getCssMetaData() {
             return StyleableProperties.PROMPT_TEXT_FILL;
         }
     };
@@ -95,7 +93,7 @@ public class JFXComboBoxListViewSkin<T> extends ComboBoxListViewSkin<T> {
             comboBox.promptTextProperty(),
             () -> promptText);
 
-        linesWrapper.init(() -> createPromptNode());
+        linesWrapper.init(this::createPromptNode);
         linesWrapper.clip.widthProperty().bind(linesWrapper.promptContainer.widthProperty().subtract(arrowButton.widthProperty()));
 
         errorContainer = new ValidationPane<>(comboBox);
@@ -183,12 +181,12 @@ public class JFXComboBoxListViewSkin<T> extends ComboBoxListViewSkin<T> {
     }
 
     private static class StyleableProperties {
-        private static final CssMetaData<JFXComboBox, Paint> PROMPT_TEXT_FILL =
-            new CssMetaData<JFXComboBox, Paint>("-fx-prompt-text-fill",
+        private static final CssMetaData<JFXComboBox<?>, Paint> PROMPT_TEXT_FILL =
+            new CssMetaData<JFXComboBox<?>, Paint>("-fx-prompt-text-fill",
                 PaintConverter.getInstance(), Color.GRAY) {
 
                 @Override
-                public boolean isSettable(JFXComboBox n) {
+                public boolean isSettable(JFXComboBox<?> n) {
                     final JFXComboBoxListViewSkin<?> skin = (JFXComboBoxListViewSkin<?>) n.getSkin();
                     return skin.promptTextFill == null || !skin.promptTextFill.isBound();
                 }

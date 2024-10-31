@@ -70,7 +70,7 @@ public class JFXKeyFrame {
 
     public static final class Builder {
         private Duration duration;
-        private Set<JFXKeyValue<?>> keyValues = new CopyOnWriteArraySet<>();
+        private final Set<JFXKeyValue<?>> keyValues = new CopyOnWriteArraySet<>();
         private Supplier<Boolean> animateCondition = null;
 
         private Builder() {

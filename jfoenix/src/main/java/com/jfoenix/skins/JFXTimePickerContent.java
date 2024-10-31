@@ -62,25 +62,25 @@ public class JFXTimePickerContent extends VBox {
     private static final String SPINNER_LABEL = "spinner-label";
     protected JFXTimePicker timePicker;
 
-    private Color fadedColor = Color.rgb(255, 255, 255, 0.67);
+    private final Color fadedColor = Color.rgb(255, 255, 255, 0.67);
     private boolean is24HourView = false;
-    private double contentCircleRadius = 100;
-    private Label selectedHourLabel = new Label();
-    private Label selectedMinLabel = new Label();
+    private final double contentCircleRadius = 100;
+    private final Label selectedHourLabel = new Label();
+    private final Label selectedMinLabel = new Label();
     private Label periodPMLabel, periodAMLabel;
-    private StackPane calendarPlaceHolder = new StackPane();
+    private final StackPane calendarPlaceHolder = new StackPane();
     private StackPane hoursContent;
     private StackPane minutesContent;
     private Rotate hoursPointerRotate, _24HourHoursPointerRotate;
     private Rotate minsPointerRotate;
-    private ObjectProperty<TimeUnit> unit = new SimpleObjectProperty<>(TimeUnit.HOURS);
-    private DoubleProperty angle = new SimpleDoubleProperty(Math.toDegrees(2 * Math.PI / 12));
-    private StringProperty period = new SimpleStringProperty("AM");
-    private ObjectProperty<Rotate> pointerRotate = new SimpleObjectProperty<>(),
-        _24HourPointerRotate = new SimpleObjectProperty<>();
-    private ObjectProperty<Label> timeLabel = new SimpleObjectProperty<>();
-    private NumberStringConverter unitConverter = new NumberStringConverter("#00");
-    private ObjectProperty<LocalTime> selectedTime = new SimpleObjectProperty<>(this, "selectedTime");
+    private final ObjectProperty<TimeUnit> unit = new SimpleObjectProperty<>(TimeUnit.HOURS);
+    private final DoubleProperty angle = new SimpleDoubleProperty(Math.toDegrees(2 * Math.PI / 12));
+    private final StringProperty period = new SimpleStringProperty("AM");
+    private final ObjectProperty<Rotate> pointerRotate = new SimpleObjectProperty<>();
+    private final ObjectProperty<Rotate> _24HourPointerRotate = new SimpleObjectProperty<>();
+    private final ObjectProperty<Label> timeLabel = new SimpleObjectProperty<>();
+    private final NumberStringConverter unitConverter = new NumberStringConverter("#00");
+    private final ObjectProperty<LocalTime> selectedTime = new SimpleObjectProperty<>(this, "selectedTime");
 
 
     JFXTimePickerContent(final JFXTimePicker jfxTimePicker) {
@@ -422,11 +422,7 @@ public class JFXTimePickerContent extends VBox {
         minCircle.setTranslateX(selectionCircle.getRadius() - minCircle.getRadius());
         minCircle.setVisible(time.getMinute() % 5 != 0);
         selectedMinLabel.textProperty().addListener((o, oldVal, newVal) -> {
-            if (Integer.parseInt(newVal) % 5 == 0) {
-                minCircle.setVisible(false);
-            } else {
-                minCircle.setVisible(true);
-            }
+            minCircle.setVisible(Integer.parseInt(newVal) % 5 != 0);
         });
 
 

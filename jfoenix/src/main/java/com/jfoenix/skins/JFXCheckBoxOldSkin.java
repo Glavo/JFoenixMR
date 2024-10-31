@@ -52,8 +52,8 @@ public class JFXCheckBoxOldSkin extends CheckBoxSkin {
     private double boxHeight;
     private final JFXRippler rippler;
 
-    private Line rightLine;
-    private Line leftLine;
+    private final Line rightLine;
+    private final Line leftLine;
 
     private final AnchorPane container = new AnchorPane();
     private double labelOffset = 0;

@@ -55,7 +55,7 @@ public class JFXDatePickerSkin extends ComboBoxPopupControl<LocalDate> {
      * TODO:
      * 1. Handle different Chronology
      */
-    private JFXDatePicker jfxDatePicker;
+    private final JFXDatePicker jfxDatePicker;
 
     // displayNode is the same as editorNode
     private TextField displayNode;
@@ -63,6 +63,7 @@ public class JFXDatePickerSkin extends ComboBoxPopupControl<LocalDate> {
 
     private JFXDialog dialog;
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public JFXDatePickerSkin(final JFXDatePicker datePicker) {
         super(datePicker, new JFXDatePickerBehavior(datePicker));
         this.jfxDatePicker = datePicker;
@@ -70,10 +71,10 @@ public class JFXDatePickerSkin extends ComboBoxPopupControl<LocalDate> {
             Field helper = datePicker.focusedProperty().getClass().getSuperclass()
                 .getDeclaredField("helper");
             helper.setAccessible(true);
-            ExpressionHelper value = (ExpressionHelper) helper.get(datePicker.focusedProperty());
+            ExpressionHelper<?> value = (ExpressionHelper<?>) helper.get(datePicker.focusedProperty());
             Field changeListenersField = value.getClass().getDeclaredField("changeListeners");
             changeListenersField.setAccessible(true);
-            ChangeListener[] changeListeners = (ChangeListener[]) changeListenersField.get(value);
+            ChangeListener[] changeListeners = (ChangeListener<?>[]) changeListenersField.get(value);
             // remove parent focus listener to prevent editor class cast exception
             for (int i = changeListeners.length - 1; i > 0; i--) {
                 if (changeListeners[i] != null && changeListeners[i].getClass().getName().contains("ComboBoxPopupControl")) {
@@ -81,9 +82,7 @@ public class JFXDatePickerSkin extends ComboBoxPopupControl<LocalDate> {
                     break;
                 }
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
         // add focus listener on editor node

@@ -30,8 +30,8 @@ import com.sun.javafx.scene.control.skin.TableViewSkinBase;
  */
 public class JFXTableHeaderRow {
 
-    private TableViewSkinBase tableSkin;
-    private TableHeaderRow headerRow;
+    private final TableViewSkinBase tableSkin;
+    private final TableHeaderRow headerRow;
 
     public JFXTableHeaderRow(final TableViewSkinBase skin) {
         this.tableSkin = skin;

@@ -64,7 +64,7 @@ public class JFXAutoCompletePopupSkin<T> implements Skin<JFXAutoCompletePopup<T>
             protected void layoutChildren() {
                 super.layoutChildren();
                 if (itemChanged) {
-                    if (suggestionList.getItems().size() > 0) {
+                    if (!suggestionList.getItems().isEmpty()) {
                         suggestionList.getSelectionModel().select(0);
                         suggestionList.scrollTo(0);
                     }
@@ -123,6 +123,7 @@ public class JFXAutoCompletePopupSkin<T> implements Skin<JFXAutoCompletePopup<T>
         });
     }
 
+    @SuppressWarnings("unchecked")
     public void animate() {
         updateListHeight();
         if (showTransition == null || showTransition.getStatus().equals(Status.STOPPED)) {
@@ -173,11 +174,11 @@ public class JFXAutoCompletePopupSkin<T> implements Skin<JFXAutoCompletePopup<T>
             try {
                 suggestionList.getSelectionModel().select(0);
                 item = suggestionList.getSelectionModel().getSelectedItem();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         if (item != null) {
-            control.getSelectionHandler().handle(new JFXAutoCompleteEvent<T>(JFXAutoCompleteEvent.SELECTION, item));
+            control.getSelectionHandler().handle(new JFXAutoCompleteEvent<>(JFXAutoCompleteEvent.SELECTION, item));
         }
     }
 

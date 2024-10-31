@@ -56,18 +56,18 @@ public class JFXCustomColorPickerDialog extends StackPane {
     // used for concurrency control and preventing FX-thread over use
     private final AtomicInteger concurrencyController = new AtomicInteger(-1);
 
-    private ObjectProperty<Color> currentColorProperty = new SimpleObjectProperty<>(Color.WHITE);
-    private ObjectProperty<Color> customColorProperty = new SimpleObjectProperty<>(Color.TRANSPARENT);
+    private final ObjectProperty<Color> currentColorProperty = new SimpleObjectProperty<>(Color.WHITE);
+    private final ObjectProperty<Color> customColorProperty = new SimpleObjectProperty<>(Color.TRANSPARENT);
     private Runnable onSave;
 
-    private Scene customScene;
-    private JFXCustomColorPicker curvedColorPicker;
+    private final Scene customScene;
+    private final JFXCustomColorPicker curvedColorPicker;
     private ParallelTransition paraTransition;
-    private JFXDecorator pickerDecorator;
+    private final JFXDecorator pickerDecorator;
     private boolean systemChange = false;
     private boolean userChange = false;
     private boolean initOnce = true;
-    private Runnable initRun;
+    private final Runnable initRun;
 
     public JFXCustomColorPickerDialog(Window owner) {
         getStyleClass().add("custom-color-dialog");
@@ -376,7 +376,7 @@ public class JFXCustomColorPickerDialog extends StackPane {
 
 
     // add option to show color picker using JFX Dialog
-    private InvalidationListener positionAdjuster = new InvalidationListener() {
+    private final InvalidationListener positionAdjuster = new InvalidationListener() {
         @Override
         public void invalidated(Observable ignored) {
             if (Double.isNaN(dialog.getWidth()) || Double.isNaN(dialog.getHeight())) {

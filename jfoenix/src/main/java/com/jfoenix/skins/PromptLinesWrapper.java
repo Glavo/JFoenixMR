@@ -66,7 +66,7 @@ import java.util.function.Supplier;
 public class PromptLinesWrapper<T extends Control & IFXLabelFloatControl> {
 
     private final Supplier<Text> promptTextSupplier;
-    private T control;
+    private final T control;
 
     public StackPane line = new StackPane();
     public StackPane focusedLine = new StackPane();
@@ -75,16 +75,16 @@ public class PromptLinesWrapper<T extends Control & IFXLabelFloatControl> {
     private JFXAnimationTimer focusTimer;
     private JFXAnimationTimer unfocusTimer;
 
-    private double initScale = 0.05;
+    private final double initScale = 0.05;
     public final Scale promptTextScale = new Scale(1, 1, 0, 0);
     private final Scale scale = new Scale(initScale, 1);
     public final Rectangle clip = new Rectangle();
 
     public ObjectProperty<Paint> animatedPromptTextFill;
     public BooleanBinding usePromptText;
-    private ObjectProperty<Paint> promptTextFill;
-    private ObservableValue<?> valueProperty;
-    private ObservableValue<String> promptTextProperty;
+    private final ObjectProperty<Paint> promptTextFill;
+    private final ObservableValue<?> valueProperty;
+    private final ObservableValue<String> promptTextProperty;
 
     private boolean animating = false;
     private double contentHeight = 0;
@@ -250,7 +250,7 @@ public class PromptLinesWrapper<T extends Control & IFXLabelFloatControl> {
     }
 
     private Object validateComboBox(Object text) {
-        if (control instanceof ComboBox && ((ComboBox) control).isEditable()) {
+        if (control instanceof ComboBox && ((ComboBox<?>) control).isEditable()) {
             final String editorText = ((ComboBox<?>) control).getEditor().getText();
             text = editorText == null || editorText.isEmpty() ? null : text;
         }

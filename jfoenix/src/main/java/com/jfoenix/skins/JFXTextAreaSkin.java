@@ -47,11 +47,11 @@ public class JFXTextAreaSkin extends TextAreaSkin {
 
     private boolean invalid = true;
 
-    private ScrollPane scrollPane;
+    private final ScrollPane scrollPane;
     private Text promptText;
 
-    private ValidationPane<JFXTextArea> errorContainer;
-    private PromptLinesWrapper<JFXTextArea> linesWrapper;
+    private final ValidationPane<JFXTextArea> errorContainer;
+    private final PromptLinesWrapper<JFXTextArea> linesWrapper;
 
     public JFXTextAreaSkin(JFXTextArea textArea) {
         super(textArea);
@@ -153,7 +153,7 @@ public class JFXTextAreaSkin extends TextAreaSkin {
     }
 
     private <T> void reflectionFieldConsumer(String fieldName, CheckedConsumer<Field> consumer) {
-        Field field = null;
+        Field field;
         try {
             field = TextAreaSkin.class.getDeclaredField(fieldName);
             field.setAccessible(true);

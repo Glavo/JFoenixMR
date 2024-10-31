@@ -50,17 +50,17 @@ class JFXColorPickerUI extends Pane {
     private CachedTransition selectorTransition;
     private int pickerSize = 400;
     // sl circle selector size
-    private int selectorSize = 20;
-    private double centerX;
-    private double centerY;
-    private double huesRadius;
-    private double slRadius;
+    private final int selectorSize = 20;
+    private final double centerX;
+    private final double centerY;
+    private final double huesRadius;
+    private final double slRadius;
     private double currentHue = 0;
 
-    private ImageView huesCircleView;
-    private ImageView slCircleView;
-    private Pane colorSelector;
-    private Pane selector;
+    private final ImageView huesCircleView;
+    private final ImageView slCircleView;
+    private final Pane colorSelector;
+    private final Pane selector;
     private CurveTransition colorsTransition;
 
     public JFXColorPickerUI(int pickerSize) {
@@ -210,7 +210,7 @@ class JFXColorPickerUI extends Pane {
     /**
      * List of Color Nodes that needs to be updated when picking a color
      */
-    private ObservableList<Node> colorNodes = FXCollections.observableArrayList();
+    private final ObservableList<Node> colorNodes = FXCollections.observableArrayList();
 
     public void addColorSelectionNode(Node... nodes) {
         colorNodes.addAll(nodes);

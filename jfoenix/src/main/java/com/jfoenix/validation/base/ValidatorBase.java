@@ -151,7 +151,7 @@ public abstract class ValidatorBase {
         }
     }
 
-    private final Tooltip getActiveTooltip(Node node) {
+    private Tooltip getActiveTooltip(Node node) {
         Tooltip tooltip = null;
         for (String key : supportedTooltipKeys) {
             tooltip = (Tooltip) node.getProperties().get(key);
@@ -173,7 +173,7 @@ public abstract class ValidatorBase {
                 if (oldVal instanceof JFXTooltip) {
                     JFXTooltip.uninstall(node);
                 }
-                if (newVal == null || !(newVal instanceof JFXTooltip)) {
+                if (!(newVal instanceof JFXTooltip)) {
                     ((Control) node).setTooltip(newVal);
                     return;
                 }
@@ -327,8 +327,6 @@ public abstract class ValidatorBase {
 
     /**
      * allow setting icon in FXML
-     *
-     * @param icon
      */
     public void setIcon(Node icon) {
         iconSupplier.set(() -> icon);

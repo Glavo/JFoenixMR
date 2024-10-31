@@ -54,20 +54,20 @@ public class JFXSpinnerSkin extends BehaviorSkinBase<JFXSpinner, BehaviorBase<JF
     private JFXSpinner control;
     private boolean isValid = false;
 
-    private Color greenColor;
-    private Color redColor;
-    private Color yellowColor;
-    private Color blueColor;
+    private final Color greenColor;
+    private final Color redColor;
+    private final Color yellowColor;
+    private final Color blueColor;
     private Timeline timeline;
     private Arc arc;
     private Arc track;
     private final StackPane arcPane;
     private final Rectangle fillRect;
     private double arcLength = -1;
-    private Text text;
+    private final Text text;
 
     public JFXSpinnerSkin(JFXSpinner control) {
-        super(control, new BehaviorBase<JFXSpinner>(control, Collections.emptyList()));
+        super(control, new BehaviorBase<>(control, Collections.emptyList()));
 
         this.control = control;
 

@@ -81,8 +81,8 @@ public class CachedTransition extends Transition {
      */
     protected void starting() {
         if (mementos != null) {
-            for (int i = 0; i < mementos.length; i++) {
-                mementos[i].cache();
+            for (CacheMemento memento : mementos) {
+                memento.cache();
             }
         }
     }
@@ -92,8 +92,8 @@ public class CachedTransition extends Transition {
      */
     protected void stopping() {
         if (mementos != null) {
-            for (int i = 0; i < mementos.length; i++) {
-                mementos[i].restore();
+            for (CacheMemento memento : mementos) {
+                memento.restore();
             }
         }
     }

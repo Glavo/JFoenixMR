@@ -54,19 +54,19 @@ import javafx.util.Duration;
  */
 public class ValidationPane<T extends Region & IFXValidatableControl & IFXStaticControl> extends HBox {
 
-    private Label errorLabel = new Label();
-    private StackPane errorIcon = new StackPane();
+    private final Label errorLabel = new Label();
+    private final StackPane errorIcon = new StackPane();
 
     private final Rectangle errorContainerClip = new Rectangle();
     private final Scale errorClipScale = new Scale(1, 0, 0, 0);
-    private Timeline errorHideTransition = new Timeline(new KeyFrame(Duration.millis(80),
+    private final Timeline errorHideTransition = new Timeline(new KeyFrame(Duration.millis(80),
         new KeyValue(opacityProperty(), 0, Interpolator.LINEAR)));
-    private Timeline errorShowTransition = new Timeline(new KeyFrame(Duration.millis(80),
+    private final Timeline errorShowTransition = new Timeline(new KeyFrame(Duration.millis(80),
         new KeyValue(opacityProperty(), 1, Interpolator.EASE_OUT)));
-    private Timeline scale1 = new Timeline();
-    private Timeline scaleLess1 = new Timeline();
+    private final Timeline scale1 = new Timeline();
+    private final Timeline scaleLess1 = new Timeline();
 
-    private T control;
+    private final T control;
 
     public ValidationPane(T control) {
         this.control = control;
@@ -200,9 +200,6 @@ public class ValidationPane<T extends Region & IFXValidatableControl & IFXStatic
 
     /**
      * update the size of error container and its clip
-     *
-     * @param w
-     * @param errorContainerHeight
      */
     private void updateErrorContainerSize(double w, double errorContainerHeight) {
         errorContainerClip.setWidth(w);
@@ -212,9 +209,6 @@ public class ValidationPane<T extends Region & IFXValidatableControl & IFXStatic
 
     /**
      * creates error animation frames when moving from large -> small error container
-     *
-     * @param errorContainerHeight
-     * @return
      */
     private KeyFrame createSmallerScaleFrame(double errorContainerHeight) {
         return new KeyFrame(Duration.millis(100),
@@ -225,8 +219,6 @@ public class ValidationPane<T extends Region & IFXValidatableControl & IFXStatic
 
     /**
      * creates error animation frames when moving from small -> large error container
-     *
-     * @return
      */
     private KeyFrame createScaleToOneFrames() {
         return new KeyFrame(Duration.millis(100), new

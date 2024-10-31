@@ -405,13 +405,13 @@ public class JFXTabPaneSkin extends BehaviorSkinBase<TabPane, TabPaneBehavior> {
      **************************************************************************/
     protected class HeaderContainer extends StackPane {
 
-        private Rectangle clip;
-        private StackPane headersRegion;
-        private StackPane headerBackground;
+        private final Rectangle clip;
+        private final StackPane headersRegion;
+        private final StackPane headerBackground;
 
-        private HeaderControl rightControlButton;
-        private HeaderControl leftControlButton;
-        private StackPane selectedTabLine;
+        private final HeaderControl rightControlButton;
+        private final HeaderControl leftControlButton;
+        private final StackPane selectedTabLine;
         private boolean initialized = false;
         private boolean measureClosingTabs = false;
         private double scrollOffset, selectedTabLineOffset;
@@ -588,7 +588,7 @@ public class JFXTabPaneSkin extends BehaviorSkinBase<TabPane, TabPaneBehavior> {
             measureClosingTabs = false;
 
             final double maxWidth = snapSize(getWidth()) - controlPrefWidth - clipOffset;
-            final double clipWidth = headersPrefWidth < maxWidth ? headersPrefWidth : maxWidth;
+            final double clipWidth = Math.min(headersPrefWidth, maxWidth);
             final double clipHeight = headersPrefHeight;
 
             clip.setX((side == Side.LEFT || side == Side.BOTTOM)
@@ -892,13 +892,13 @@ public class JFXTabPaneSkin extends BehaviorSkinBase<TabPane, TabPaneBehavior> {
 
     protected class TabHeaderContainer extends StackPane {
 
-        private Tab tab = null;
-        private Label tabLabel;
+        private Tab tab;
+        private final Label tabLabel;
         private Tooltip oldTooltip;
         private Tooltip tooltip;
-        private HBox inner;
-        private Button closeButton;
-        private JFXRippler rippler;
+        private final HBox inner;
+        private final Button closeButton;
+        private final JFXRippler rippler;
         private boolean isClosing = false;
 
         private final MultiplePropertyChangeListenerHandler listener =
@@ -1132,10 +1132,10 @@ public class JFXTabPaneSkin extends BehaviorSkinBase<TabPane, TabPaneBehavior> {
      **************************************************************************/
     protected class TabContentHolder extends StackPane {
         private Tab tab;
-        private InvalidationListener tabContentListener = valueModel -> updateContent();
-        private InvalidationListener tabSelectedListener = valueModel -> setVisible(tab.isSelected());
-        private WeakInvalidationListener weakTabContentListener = new WeakInvalidationListener(tabContentListener);
-        private WeakInvalidationListener weakTabSelectedListener = new WeakInvalidationListener(tabSelectedListener);
+        private final InvalidationListener tabContentListener = valueModel -> updateContent();
+        private final InvalidationListener tabSelectedListener = valueModel -> setVisible(tab.isSelected());
+        private final WeakInvalidationListener weakTabContentListener = new WeakInvalidationListener(tabContentListener);
+        private final WeakInvalidationListener weakTabSelectedListener = new WeakInvalidationListener(tabSelectedListener);
 
         public TabContentHolder(Tab tab) {
             this.tab = tab;
@@ -1172,16 +1172,17 @@ public class JFXTabPaneSkin extends BehaviorSkinBase<TabPane, TabPaneBehavior> {
      *																		  *
      **************************************************************************/
     protected class HeaderControl extends StackPane {
-        private StackPane inner;
-        private boolean showControlButtons, isLeftArrow;
+        private final StackPane inner;
+        private boolean showControlButtons;
+        private final boolean isLeftArrow;
         private Timeline arrowAnimation;
-        private SVGGlyph arrowButton;
-        private StackPane container;
+        private final SVGGlyph arrowButton;
+        private final StackPane container;
 
-        private PseudoClass left = PseudoClass.getPseudoClass("left");
-        private PseudoClass right = PseudoClass.getPseudoClass("right");
+        private final PseudoClass left = PseudoClass.getPseudoClass("left");
+        private final PseudoClass right = PseudoClass.getPseudoClass("right");
 
-        public HeaderControl(ArrowPosition pos) {
+        HeaderControl(ArrowPosition pos) {
             getStyleClass().setAll("control-buttons-tab");
             isLeftArrow = pos == ArrowPosition.LEFT;
             arrowButton = new SVGGlyph();

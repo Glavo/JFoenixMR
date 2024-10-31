@@ -66,9 +66,9 @@ public class JFXChipViewSkin<T> extends BehaviorSkinBase<JFXChipView<T>, JFXChip
     private static final PseudoClass PSEUDO_CLASS_ERROR = PseudoClass.getPseudoClass("error");
 
     private CustomFlowPane root;
-    private JFXChipView<T> control;
+    private final JFXChipView<T> control;
     private FakeFocusTextArea editor;
-    private ChipsAutoComplete<T> autoCompletePopup;
+    private final ChipsAutoComplete<T> autoCompletePopup;
 
     private boolean moveToNewLine = false;
     private boolean editorOnNewLine = true;
@@ -81,7 +81,7 @@ public class JFXChipViewSkin<T> extends BehaviorSkinBase<JFXChipView<T>, JFXChip
                 for (int i = root.getChildren().size() - 2; i >= 0; i--) {
                     Node child = root.getChildren().get(i);
                     if (child instanceof JFXChip) {
-                        if (((JFXChip) child).getItem() == item) {
+                        if (((JFXChip<?>) child).getItem() == item) {
                             root.getChildren().remove(i);
                             break;
                         }
@@ -256,12 +256,12 @@ public class JFXChipViewSkin<T> extends BehaviorSkinBase<JFXChipView<T>, JFXChip
 
     // these methods are called inside the chips items change listener
     private void createChip(T item) {
-        JFXChip<T> chip = null;
+        JFXChip<T> chip;
         try {
             if (getSkinnable().getChipFactory() != null) {
                 chip = getSkinnable().getChipFactory().apply(getSkinnable(), item);
             } else {
-                chip = new JFXDefaultChip<T>(getSkinnable(), item);
+                chip = new JFXDefaultChip<>(getSkinnable(), item);
             }
         } catch (Exception e) {
             throw new RuntimeException("can't create chip for item '" + item +
@@ -393,6 +393,7 @@ public class JFXChipViewSkin<T> extends BehaviorSkinBase<JFXChipView<T>, JFXChip
             this.shift = shift;
         }
 
+        @SuppressWarnings("unchecked")
         public void show(Node node) {
             if (text == null) {
                 text = (Text) node.lookup(".text");

@@ -72,10 +72,10 @@ public class JFXToggleNodeSkin extends ToggleButtonSkin {
                 mask.backgroundProperty().bind(Bindings.createObjectBinding(() -> {
                     return new Background(new BackgroundFill(Color.WHITE,
                         getSkinnable().getBackground() != null
-                        && getSkinnable().getBackground().getFills().size() > 0 ?
+                        && !getSkinnable().getBackground().getFills().isEmpty() ?
                             getSkinnable().getBackground().getFills().get(0).getRadii() : CornerRadii.EMPTY,
                         getSkinnable().getBackground() != null
-                        && getSkinnable().getBackground().getFills().size() > 0 ?
+                        && !getSkinnable().getBackground().getFills().isEmpty() ?
                             getSkinnable().getBackground().getFills().get(0).getInsets() : Insets.EMPTY));
                 }, getSkinnable().backgroundProperty()));
                 mask.resize(getWidth() - snappedRightInset() - snappedLeftInset(),

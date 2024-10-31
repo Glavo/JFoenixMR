@@ -210,17 +210,14 @@ public final class JFXFillTransition extends Transition {
         setFromValue(fromValue);
         setToValue(toValue);
         setCycleDuration(duration);
-        statusProperty().addListener(new ChangeListener<Status>() {
-            @Override
-            public void changed(ObservableValue<? extends Status> ov, Status t, Status newStatus) {
-                switch (newStatus) {
-                    case RUNNING:
-                        starting();
-                        break;
-                    default:
-                        stopping();
-                        break;
-                }
+        statusProperty().addListener((ov, t, newStatus) -> {
+            switch (newStatus) {
+                case RUNNING:
+                    starting();
+                    break;
+                default:
+                    stopping();
+                    break;
             }
         });
     }
@@ -268,7 +265,7 @@ public final class JFXFillTransition extends Transition {
     private CornerRadii radii;
     private Insets insets;
 
-    protected void starting() {
+    private void starting() {
         // init animation values
         if (start == null) {
             oldCache = region.get().isCache();
@@ -293,7 +290,7 @@ public final class JFXFillTransition extends Transition {
     /**
      * Called when the animation is stopping
      */
-    protected void stopping() {
+    private void stopping() {
         region.get().setCache(oldCache);
         region.get().setCacheHint(oldCacheHint);
     }

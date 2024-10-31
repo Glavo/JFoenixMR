@@ -187,7 +187,7 @@ public class JFXNodeUtils {
             Node head = queue.poll();
             if (childClass.isInstance(head)) {
                 selectedChildren.add((T) head);
-            } else if (Region.class.isInstance(head)) {
+            } else if (head instanceof Region) {
                 ((Region) head).getChildrenUnmodifiable().forEach(queue::offer);
             }
         }

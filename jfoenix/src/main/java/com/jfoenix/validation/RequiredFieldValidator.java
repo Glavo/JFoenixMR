@@ -60,15 +60,11 @@ public class RequiredFieldValidator extends ValidatorBase {
 
     private void evalTextInputField() {
         TextInputControl textField = (TextInputControl) srcControl.get();
-        if (textField.getText() == null || textField.getText().isEmpty()) {
-            hasErrors.set(true);
-        } else {
-            hasErrors.set(false);
-        }
+        hasErrors.set(textField.getText() == null || textField.getText().isEmpty());
     }
 
     private void evalComboBoxField() {
-        ComboBoxBase comboField = (ComboBoxBase) srcControl.get();
+        ComboBoxBase<?> comboField = (ComboBoxBase<?>) srcControl.get();
         Object value = comboField.getValue();
         hasErrors.set(value == null || value.toString().isEmpty());
     }

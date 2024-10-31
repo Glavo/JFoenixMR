@@ -55,11 +55,11 @@ public class JFXSliderSkin extends SliderSkin {
     private static final PseudoClass MIN_VALUE = PseudoClass.getPseudoClass("min");
     private static final PseudoClass MAX_VALUE = PseudoClass.getPseudoClass("max");
 
-    private Text sliderValue;
-    private StackPane coloredTrack;
-    private StackPane thumb;
-    private StackPane track;
-    private StackPane animatedThumb;
+    private final Text sliderValue;
+    private final StackPane coloredTrack;
+    private final StackPane thumb;
+    private final StackPane track;
+    private final StackPane animatedThumb;
 
     private Timeline timeline;
 

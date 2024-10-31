@@ -47,12 +47,12 @@ public class CustomBidirectionalBinding<A, B> implements IBiBinder {
     private final WeakReference<ReadOnlyProperty<B>> propertyRef2;
     private final Consumer<A> propertyRef1Setter;
     private final Consumer<B> propertyRef2Setter;
-    private HashMap<ReadOnlyProperty<?>, ChangeListener> listeners = new HashMap<>();
-    private IPropertyConverter<A, B> converter;
+    private HashMap<ReadOnlyProperty<?>, ChangeListener<?>> listeners = new HashMap<>();
+    private final IPropertyConverter<A, B> converter;
 
     public CustomBidirectionalBinding(Property<A> a, Property<B> b, IPropertyConverter<A, B> converter) {
-        this(a, value -> a.setValue(value),
-            b, value -> b.setValue(value),
+        this(a, a::setValue,
+            b, b::setValue,
             converter);
     }
 
@@ -66,16 +66,16 @@ public class CustomBidirectionalBinding<A, B> implements IBiBinder {
         this.converter = converter;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void unbindBi() {
-        listeners.entrySet().forEach(entry -> entry.getKey().removeListener(entry.getValue()));
+        listeners.forEach((key, value) -> key.removeListener((ChangeListener) value));
     }
 
     @Override
     public void bindBi() {
-        addFlaggedChangeListener(propertyRef1.get(), propertyRef1Setter, propertyRef2.get(), propertyRef2Setter, param -> converter.to(param));
-        addFlaggedChangeListener(propertyRef2.get(), propertyRef2Setter, propertyRef1.get(), propertyRef1Setter, param -> converter.from(param));
+        addFlaggedChangeListener(propertyRef1.get(), propertyRef1Setter, propertyRef2.get(), propertyRef2Setter, converter::to);
+        addFlaggedChangeListener(propertyRef2.get(), propertyRef2Setter, propertyRef1.get(), propertyRef1Setter, converter::from);
         propertyRef2Setter.accept(converter.to(propertyRef1.get().getValue()));
     }
 

@@ -59,8 +59,8 @@ import java.util.List;
  */
 public class JFXColorPickerSkin extends ComboBoxPopupControl<Color> {
 
-    private Label displayNode;
-    private JFXClippedPane colorBox;
+    private final Label displayNode;
+    private final JFXClippedPane colorBox;
     private JFXColorPalette popupContent;
     StyleableBooleanProperty colorLabelVisible = new SimpleStyleableBooleanProperty(StyleableProperties.COLOR_LABEL_VISIBLE,
         JFXColorPickerSkin.this,

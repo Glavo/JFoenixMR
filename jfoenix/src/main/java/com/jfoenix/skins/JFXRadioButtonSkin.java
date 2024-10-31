@@ -50,9 +50,10 @@ import javafx.util.Duration;
 public class JFXRadioButtonSkin extends RadioButtonSkin {
 
     private final JFXRippler rippler;
-    private double padding = 12;
+    private final double padding = 12;
 
-    private Circle radio, dot;
+    private final Circle radio;
+    private final Circle dot;
     private final StackPane container;
 
     private JFXAnimationTimer timer;

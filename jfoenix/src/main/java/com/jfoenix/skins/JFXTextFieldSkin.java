@@ -52,8 +52,8 @@ public class JFXTextFieldSkin<T extends JFXTextField & IFXLabelFloatControl> ext
     private Node textNode;
     private DoubleProperty textTranslateX;
 
-    private ValidationPane<T> errorContainer;
-    private PromptLinesWrapper<T> linesWrapper;
+    private final ValidationPane<T> errorContainer;
+    private final PromptLinesWrapper<T> linesWrapper;
 
     public JFXTextFieldSkin(T textField) {
         super(textField);
