@@ -44,7 +44,7 @@ import java.util.List;
  * @version 1.0
  * @since 2017-02-11
  */
-public class JFXTreeViewPath extends ScrollPane {
+public class JFXTreeViewPath<T> extends ScrollPane {
 
     private final PseudoClass firstClass = PseudoClass.getPseudoClass("first");
     private final PseudoClass nextClass = PseudoClass.getPseudoClass("next");
@@ -55,7 +55,7 @@ public class JFXTreeViewPath extends ScrollPane {
 
     private double lastX;
 
-    public JFXTreeViewPath(TreeView<?> treeView) {
+    public JFXTreeViewPath(TreeView<T> treeView) {
 
         getStyleClass().add(DEFAULT_STYLE_CLASS);
 
@@ -73,15 +73,15 @@ public class JFXTreeViewPath extends ScrollPane {
         setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         setFitToHeight(true);
         treeView.getSelectionModel().selectedItemProperty().addListener(observable -> {
-            TreeItem selectedItem = treeView.getSelectionModel().getSelectedItem();
-            TreeItem temp = selectedItem;
+            TreeItem<T> selectedItem = treeView.getSelectionModel().getSelectedItem();
+            TreeItem<T> temp = selectedItem;
             int level = treeView.getTreeItemLevel(temp) - (treeView.isShowRoot() ? 0 : 1);
             if (temp != null) {
                 List<Node> newPath = new ArrayList<>();
                 while (temp != null) {
-                    TreeItem parent = treeView.isShowRoot() ? temp : temp.getParent();
+                    TreeItem<T> parent = treeView.isShowRoot() ? temp : temp.getParent();
                     if (parent != null) {
-                        Button button = null;
+                        Button button;
                         if (temp.isLeaf()) {
                             button = createLastButton(temp, parent.getParent());
                             button.pseudoClassStateChanged(lastClass, true);
@@ -92,7 +92,7 @@ public class JFXTreeViewPath extends ScrollPane {
                             button = createNextButton(temp);
                             button.pseudoClassStateChanged(nextClass, true);
                         }
-                        final TreeItem node = temp;
+                        final TreeItem<T> node = temp;
                         button.setOnAction(action -> treeView.scrollTo(treeView.getRow(node)));
                         final StackPane container = new StackPane(button);
                         container.setPickOnBounds(false);
@@ -148,7 +148,7 @@ public class JFXTreeViewPath extends ScrollPane {
         return super.computePrefHeight(width);
     }
 
-    private JFXButton createNextButton(TreeItem temp) {
+    private JFXButton createNextButton(TreeItem<T> temp) {
         return new JFXButton(temp.getValue().toString()) {
             {
                 setPadding(new Insets(getOffset(), 1.5 * getOffset(), getOffset(), 2 * getOffset()));
@@ -161,20 +161,20 @@ public class JFXTreeViewPath extends ScrollPane {
                 double width = getWidth();
                 Polygon polygon = new Polygon();
                 final double height = getHeight();
-                polygon.getPoints().addAll(new Double[] {
+                polygon.getPoints().addAll(
                     0.0, 0.0,
                     width - getOffset(), 0.0,
                     width, height / 2,
                     width - getOffset(), height,
                     0.0, height,
-                    getOffset(), height / 2});
+                    getOffset(), height / 2);
                 setClip(polygon);
 
             }
         };
     }
 
-    public JFXButton createFirstButton(TreeItem temp) {
+    public JFXButton createFirstButton(TreeItem<T> temp) {
         return new JFXButton(temp.getValue().toString()) {
             {
                 setPadding(new Insets(getOffset(), 1.5 * getOffset(), getOffset(), getOffset()));
@@ -187,20 +187,20 @@ public class JFXTreeViewPath extends ScrollPane {
                 double width = getWidth();
                 Polygon polygon = new Polygon();
                 final double height = getHeight();
-                polygon.getPoints().addAll(new Double[] {
+                polygon.getPoints().addAll(
                     0.0, 0.0,
                     width - getOffset(), 0.0,
                     width, height / 2,
                     width - getOffset(), height,
-                    0.0, height});
+                    0.0, height);
                 setClip(polygon);
             }
         };
     }
 
-    private JFXButton createLastButton(TreeItem temp, TreeItem parent) {
+    private JFXButton createLastButton(TreeItem<T> temp, TreeItem<T> parent) {
         return new JFXButton(temp.getValue().toString()) {
-            private boolean noParent = parent == null;
+            private final boolean noParent = parent == null;
             {
                 setPadding(new Insets(getOffset(), getOffset(), getOffset(), (noParent? 1 : 2) * getOffset()));
                 setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -212,12 +212,12 @@ public class JFXTreeViewPath extends ScrollPane {
                 double width = getWidth();
                 Polygon polygon = new Polygon();
                 final double height = getHeight();
-                polygon.getPoints().addAll(new Double[] {
+                polygon.getPoints().addAll(
                     0.0, 0.0,
                     width, 0.0,
                     width, height,
                     0.0, height,
-                    noParent ? 0 : getOffset(), noParent ? 0 : height / 2});
+                    noParent ? 0 : getOffset(), noParent ? 0 : height / 2);
                 setClip(polygon);
             }
         };
@@ -225,7 +225,7 @@ public class JFXTreeViewPath extends ScrollPane {
 
     private static final String DEFAULT_STYLE_CLASS = "jfx-tree-view-path";
 
-    private StyleableDoubleProperty offset = new SimpleStyleableDoubleProperty(
+    private final StyleableDoubleProperty offset = new SimpleStyleableDoubleProperty(
         StyleableProperties.OFFSET,
         JFXTreeViewPath.this,
         "offset",
@@ -244,11 +244,11 @@ public class JFXTreeViewPath extends ScrollPane {
     }
 
     private static class StyleableProperties {
-        private static final CssMetaData<JFXTreeViewPath, Number> OFFSET =
-            new CssMetaData<JFXTreeViewPath, Number>("-jfx-offset",
+        private static final CssMetaData<JFXTreeViewPath<?>, Number> OFFSET =
+            new CssMetaData<JFXTreeViewPath<?>, Number>("-jfx-offset",
                 SizeConverter.getInstance(), 10.0) {
                 @Override
-                public boolean isSettable(JFXTreeViewPath control) {
+                public boolean isSettable(JFXTreeViewPath<?> control) {
                     return control.offset == null || !control.offset.isBound();
                 }
 
