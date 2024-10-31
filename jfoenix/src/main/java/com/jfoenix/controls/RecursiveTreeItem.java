@@ -48,12 +48,12 @@ import java.util.function.Predicate;
  */
 public class RecursiveTreeItem<T extends RecursiveTreeObject<T>> extends TreeItem<T> {
 
-    private Callback<RecursiveTreeObject<T>, ObservableList<T>> childrenFactory;
+    private final Callback<RecursiveTreeObject<T>, ObservableList<T>> childrenFactory;
 
     /**
      * predicate used to filter nodes
      */
-    private ObjectProperty<Predicate<TreeItem<T>>> predicate = new SimpleObjectProperty<>((TreeItem<T> t) -> true);
+    private final ObjectProperty<Predicate<TreeItem<T>>> predicate = new SimpleObjectProperty<>((TreeItem<T> t) -> true);
 
     /**
      * map data value to tree item
@@ -145,13 +145,13 @@ public class RecursiveTreeItem<T extends RecursiveTreeObject<T>> extends TreeIte
                     return true;
                 }
                 // If there are children, keep this tree item
-                if (child.getChildren().size() > 0) {
+                if (!child.getChildren().isEmpty()) {
                     return true;
                 }
                 // If its a group node keep this item if it has children
-                if (child.getValue() instanceof RecursiveTreeObject &&
+                if (child.getValue() != null &&
                     child.getValue().getClass() == RecursiveTreeObject.class) {
-                    return child.getChildren().size() != 0;
+                    return !child.getChildren().isEmpty();
                 }
                 // Otherwise ask the TreeItemPredicate
                 return predicate.get().test(child);

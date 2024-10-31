@@ -46,12 +46,12 @@ import java.util.List;
  */
 public class JFXTreeViewPath extends ScrollPane {
 
-    private PseudoClass firstClass = PseudoClass.getPseudoClass("first");
-    private PseudoClass nextClass = PseudoClass.getPseudoClass("next");
-    private PseudoClass lastClass = PseudoClass.getPseudoClass("last");
-    private Region clip = new Region();
+    private final PseudoClass firstClass = PseudoClass.getPseudoClass("first");
+    private final PseudoClass nextClass = PseudoClass.getPseudoClass("next");
+    private final PseudoClass lastClass = PseudoClass.getPseudoClass("last");
+    private final Region clip = new Region();
 
-    private HBox container = new HBox();
+    private final HBox container = new HBox();
 
     private double lastX;
 
