@@ -125,7 +125,7 @@ public class JFXTimePicker extends ComboBoxBase<LocalTime> implements IFXValidat
         return converter;
     }
 
-    private ObjectProperty<StringConverter<LocalTime>> converter =
+    private final ObjectProperty<StringConverter<LocalTime>> converter =
         new SimpleObjectProperty<>(this, "converter", null);
 
     public final void setConverter(StringConverter<LocalTime> value) {
@@ -141,10 +141,10 @@ public class JFXTimePicker extends ComboBoxBase<LocalTime> implements IFXValidat
         }
     }
 
-    private StringConverter<LocalTime> defaultConverter = new LocalTimeStringConverter(FormatStyle.SHORT,
+    private final StringConverter<LocalTime> defaultConverter = new LocalTimeStringConverter(FormatStyle.SHORT,
         Locale.getDefault());
 
-    private BooleanProperty _24HourView = new SimpleBooleanProperty(false);
+    private final BooleanProperty _24HourView = new SimpleBooleanProperty(false);
 
     public final BooleanProperty _24HourViewProperty() {
         return this._24HourView;
@@ -184,7 +184,7 @@ public class JFXTimePicker extends ComboBoxBase<LocalTime> implements IFXValidat
         return editor.getReadOnlyProperty();
     }
 
-    private ValidationControl validationControl = new ValidationControl(this);
+    private final ValidationControl validationControl = new ValidationControl(this);
 
     @Override
     public ValidatorBase getActiveValidator() {
@@ -235,7 +235,7 @@ public class JFXTimePicker extends ComboBoxBase<LocalTime> implements IFXValidat
      * NOTE: to show it properly the scene root must be StackPane, or the user must set
      * the dialog parent manually using the property {{@link #dialogParentProperty()}
      */
-    private StyleableBooleanProperty overLay = new SimpleStyleableBooleanProperty(StyleableProperties.OVERLAY,
+    private final StyleableBooleanProperty overLay = new SimpleStyleableBooleanProperty(StyleableProperties.OVERLAY,
         JFXTimePicker.this,
         "overLay",
         false);
@@ -255,7 +255,7 @@ public class JFXTimePicker extends ComboBoxBase<LocalTime> implements IFXValidat
     /**
      * the default color used in the data picker content
      */
-    private StyleableObjectProperty<Paint> defaultColor = new SimpleStyleableObjectProperty<>(StyleableProperties.DEFAULT_COLOR,
+    private final StyleableObjectProperty<Paint> defaultColor = new SimpleStyleableObjectProperty<>(StyleableProperties.DEFAULT_COLOR,
         JFXTimePicker.this,
         "defaultColor",
         Color.valueOf(

@@ -153,7 +153,7 @@ public class JFXSlider extends Slider {
      * indicates the position of the slider indicator, can be
      * either LEFT or RIGHT
      */
-    private StyleableObjectProperty<IndicatorPosition> indicatorPosition = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<IndicatorPosition> indicatorPosition = new SimpleStyleableObjectProperty<>(
         StyleableProperties.INDICATOR_POSITION,
         JFXSlider.this,
         "indicatorPosition",

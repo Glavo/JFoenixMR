@@ -60,11 +60,11 @@ public class JFXTreeCell<T> extends TreeCell<T> {
         }
     };
     private HBox hbox;
-    private StackPane selectedPane = new StackPane();
+    private final StackPane selectedPane = new StackPane();
 
-    private InvalidationListener treeItemGraphicInvalidationListener = observable -> updateDisplay(getItem(),
+    private final InvalidationListener treeItemGraphicInvalidationListener = observable -> updateDisplay(getItem(),
         isEmpty());
-    private WeakInvalidationListener weakTreeItemGraphicListener = new WeakInvalidationListener(
+    private final WeakInvalidationListener weakTreeItemGraphicListener = new WeakInvalidationListener(
         treeItemGraphicInvalidationListener);
 
     private WeakReference<TreeItem<T>> treeItemRef;

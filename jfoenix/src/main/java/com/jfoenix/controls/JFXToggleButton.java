@@ -121,7 +121,7 @@ public class JFXToggleButton extends ToggleButton {
     /**
      * default color used when the button is toggled
      */
-    private StyleableObjectProperty<Paint> toggleColor = new SimpleStyleableObjectProperty<>(StyleableProperties.TOGGLE_COLOR,
+    private final StyleableObjectProperty<Paint> toggleColor = new SimpleStyleableObjectProperty<>(StyleableProperties.TOGGLE_COLOR,
         JFXToggleButton.this,
         "toggleColor",
         Color.valueOf(
@@ -142,7 +142,7 @@ public class JFXToggleButton extends ToggleButton {
     /**
      * default color used when the button is not toggled
      */
-    private StyleableObjectProperty<Paint> untoggleColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNTOGGLE_COLOR,
+    private final StyleableObjectProperty<Paint> untoggleColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNTOGGLE_COLOR,
         JFXToggleButton.this,
         "unToggleColor",
         Color.valueOf(
@@ -163,7 +163,7 @@ public class JFXToggleButton extends ToggleButton {
     /**
      * default line color used when the button is toggled
      */
-    private StyleableObjectProperty<Paint> toggleLineColor = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<Paint> toggleLineColor = new SimpleStyleableObjectProperty<>(
         StyleableProperties.TOGGLE_LINE_COLOR,
         JFXToggleButton.this,
         "toggleLineColor",
@@ -184,7 +184,7 @@ public class JFXToggleButton extends ToggleButton {
     /**
      * default line color used when the button is not toggled
      */
-    private StyleableObjectProperty<Paint> untoggleLineColor = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<Paint> untoggleLineColor = new SimpleStyleableObjectProperty<>(
         StyleableProperties.UNTOGGLE_LINE_COLOR,
         JFXToggleButton.this,
         "unToggleLineColor",
@@ -226,7 +226,7 @@ public class JFXToggleButton extends ToggleButton {
     /**
      * Disable the visual indicator for focus
      */
-    private StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
+    private final StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
         JFXToggleButton.this,
         "disableVisualFocus",
         false);
@@ -247,7 +247,7 @@ public class JFXToggleButton extends ToggleButton {
     /**
      * disable animation on button action
      */
-    private StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(JFXToggleButton.StyleableProperties.DISABLE_ANIMATION,
+    private final StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(JFXToggleButton.StyleableProperties.DISABLE_ANIMATION,
         JFXToggleButton.this,
         "disableAnimation",
         false);

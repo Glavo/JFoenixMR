@@ -39,9 +39,9 @@ import java.util.List;
  * @since 2016-03-09
  */
 public class JFXDialogLayout extends VBox {
-    private StackPane heading = new StackPane();
-    private StackPane body = new StackPane();
-    private FlowPane actions = new FlowPane();
+    private final StackPane heading = new StackPane();
+    private final StackPane body = new StackPane();
+    private final FlowPane actions = new FlowPane();
 
     /**
      * creates empty dialog layout
@@ -67,8 +67,6 @@ public class JFXDialogLayout extends VBox {
 
     /**
      * set header node
-     *
-     * @param titleContent
      */
     public void setHeading(Node... titleContent) {
         this.heading.getChildren().setAll(titleContent);
@@ -80,8 +78,6 @@ public class JFXDialogLayout extends VBox {
 
     /**
      * set body node
-     *
-     * @param body
      */
     public void setBody(Node... body) {
         this.body.getChildren().setAll(body);
@@ -93,8 +89,6 @@ public class JFXDialogLayout extends VBox {
 
     /**
      * set actions of the dialog (Accept, Cancel,...)
-     *
-     * @param actions
      */
     public void setActions(Node... actions) {
         this.actions.getChildren().setAll(actions);

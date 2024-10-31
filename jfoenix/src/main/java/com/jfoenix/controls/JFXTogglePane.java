@@ -44,16 +44,16 @@ public class JFXTogglePane extends StackPane {
 
     private Timeline toggleAnimation = null;
 
-    private ObjectProperty<Control> toggleNode = new SimpleObjectProperty<>();
+    private final ObjectProperty<Control> toggleNode = new SimpleObjectProperty<>();
 
-    private ObjectProperty<Node> contentNode = new SimpleObjectProperty<>();
+    private final ObjectProperty<Node> contentNode = new SimpleObjectProperty<>();
 
     /*
      * the scaling factor controls area of the clipping node when
      * toggeling the pane
      *
      */
-    private DoubleProperty scalingFactor = new SimpleDoubleProperty(2.4);
+    private final DoubleProperty scalingFactor = new SimpleDoubleProperty(2.4);
 
     public JFXTogglePane() {
 

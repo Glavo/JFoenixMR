@@ -31,7 +31,6 @@ import javafx.collections.ObservableList;
 import javafx.css.*;
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
@@ -65,7 +64,7 @@ public class JFXListView<T> extends ListView<T> {
         return new JFXListViewSkin<>(this);
     }
 
-    private ObjectProperty<Integer> depthProperty = new SimpleObjectProperty<>(0);
+    private final ObjectProperty<Integer> depthProperty = new SimpleObjectProperty<>(0);
 
     public ObjectProperty<Integer> depthProperty() {
         return depthProperty;
@@ -79,7 +78,7 @@ public class JFXListView<T> extends ListView<T> {
         depthProperty.set(depth);
     }
 
-    private ReadOnlyDoubleWrapper currentVerticalGapProperty = new ReadOnlyDoubleWrapper();
+    private final ReadOnlyDoubleWrapper currentVerticalGapProperty = new ReadOnlyDoubleWrapper();
 
     ReadOnlyDoubleProperty currentVerticalGapProperty() {
         return currentVerticalGapProperty.getReadOnlyProperty();
@@ -96,7 +95,7 @@ public class JFXListView<T> extends ListView<T> {
     /*
      * this only works if the items were labels / strings
      */
-    private BooleanProperty showTooltip = new SimpleBooleanProperty(false);
+    private final BooleanProperty showTooltip = new SimpleBooleanProperty(false);
 
     public final BooleanProperty showTooltipProperty() {
         return this.showTooltip;
@@ -117,7 +116,7 @@ public class JFXListView<T> extends ListView<T> {
      **************************************************************************/
 
     @Deprecated
-    private ObjectProperty<Node> groupnode = new SimpleObjectProperty<>(new Label("GROUP"));
+    private final ObjectProperty<Node> groupnode = new SimpleObjectProperty<>(new Label("GROUP"));
 
     @Deprecated
     public Node getGroupnode() {
@@ -133,7 +132,7 @@ public class JFXListView<T> extends ListView<T> {
      *  selected index property that includes the sublists
      */
     @Deprecated
-    private ReadOnlyObjectWrapper<Integer> overAllIndexProperty = new ReadOnlyObjectWrapper<>(-1);
+    private final ReadOnlyObjectWrapper<Integer> overAllIndexProperty = new ReadOnlyObjectWrapper<>(-1);
 
     @Deprecated
     public ReadOnlyObjectProperty<Integer> overAllIndexProperty() {
@@ -142,10 +141,10 @@ public class JFXListView<T> extends ListView<T> {
 
     // private sublists property
     @Deprecated
-    private ObjectProperty<ObservableList<JFXListView<?>>> sublistsProperty = new SimpleObjectProperty<>(
+    private final ObjectProperty<ObservableList<JFXListView<?>>> sublistsProperty = new SimpleObjectProperty<>(
         FXCollections.observableArrayList());
     @Deprecated
-    private LinkedHashMap<Integer, JFXListView<?>> sublistsIndices = new LinkedHashMap<>();
+    private final LinkedHashMap<Integer, JFXListView<?>> sublistsIndices = new LinkedHashMap<>();
 
     // this method shouldn't be called from user
     @Deprecated
@@ -183,7 +182,7 @@ public class JFXListView<T> extends ListView<T> {
                     selectedList.add(entry.getKey());
                 }
             }
-            if (selectedList.size() > 0) {
+            if (!selectedList.isEmpty()) {
                 itr = sublistsIndices.entrySet().iterator();
                 int preItemsSize = 0;
                 while (itr.hasNext()) {
@@ -192,8 +191,7 @@ public class JFXListView<T> extends ListView<T> {
                         preItemsSize += entry.getValue().getItems().size() - 1;
                     }
                 }
-                overAllIndexProperty.set(preItemsSize + (Integer) selectedList.get(0) + sublistsIndices.get(selectedList
-                    .get(0))
+                overAllIndexProperty.set(preItemsSize + (Integer) selectedList.get(0) + sublistsIndices.get(selectedList.get(0))
                     .getSelectionModel()
                     .getSelectedIndex());
             } else {
@@ -308,7 +306,7 @@ public class JFXListView<T> extends ListView<T> {
         this.verticalGap.set(gap);
     }
 
-    private StyleableBooleanProperty expanded = new SimpleStyleableBooleanProperty(StyleableProperties.EXPANDED,
+    private final StyleableBooleanProperty expanded = new SimpleStyleableBooleanProperty(StyleableProperties.EXPANDED,
         JFXListView.this,
         "expanded",
         false);

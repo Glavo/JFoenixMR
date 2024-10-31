@@ -127,7 +127,7 @@ public class JFXToggleNode extends ToggleButton {
     /**
      * default color used when the node is not toggled
      */
-    private StyleableObjectProperty<Color> unSelectedColor = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<Color> unSelectedColor = new SimpleStyleableObjectProperty<>(
         StyleableProperties.UNSELECTED_COLOR,
         JFXToggleNode.this,
         "unSelectedCOlor",
@@ -148,7 +148,7 @@ public class JFXToggleNode extends ToggleButton {
     /**
      * disable animation on button action
      */
-    private StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
+    private final StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
         JFXToggleNode.this,
         "disableAnimation",
         false);
@@ -169,7 +169,7 @@ public class JFXToggleNode extends ToggleButton {
     /**
      * Disable the visual indicator for focus
      */
-    private StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
+    private final StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
         JFXToggleNode.this,
         "disableVisualFocus",
         false);

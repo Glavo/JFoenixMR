@@ -36,7 +36,7 @@ import javafx.scene.paint.Color;
  */
 public class JFXClippedPane extends StackPane {
 
-    private Region clip = new Region();
+    private final Region clip = new Region();
 
     public JFXClippedPane(){
         super();

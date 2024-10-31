@@ -64,6 +64,7 @@ import java.util.List;
  * @version 1.0
  * @since 2016-05-24
  */
+@SuppressWarnings("ALL")
 public class JFXMasonryPane extends Pane {
 
     private boolean performingLayout = false;

@@ -88,13 +88,13 @@ public class JFXDecorator extends VBox {
     private boolean allowMove = false;
     private boolean isDragging = false;
     private Timeline windowDecoratorAnimation;
-    private StackPane contentPlaceHolder = new StackPane();
+    private final StackPane contentPlaceHolder = new StackPane();
     private HBox buttonsContainer;
 
-    private ObjectProperty<Runnable> onCloseButtonAction = new SimpleObjectProperty<>(() ->
+    private final ObjectProperty<Runnable> onCloseButtonAction = new SimpleObjectProperty<>(() ->
         primaryStage.fireEvent(new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST)));
 
-    private BooleanProperty customMaximize = new SimpleBooleanProperty(false);
+    private final BooleanProperty customMaximize = new SimpleBooleanProperty(false);
     private boolean maximized = false;
     private BoundingBox originalBox;
     private BoundingBox maximizedBox;
@@ -397,7 +397,7 @@ public class JFXDecorator extends VBox {
         }
         double x = mouseEvent.getX();
         double y = mouseEvent.getY();
-        if (contentPlaceHolder.getBorder() != null && contentPlaceHolder.getBorder().getStrokes().size() > 0) {
+        if (contentPlaceHolder.getBorder() != null && !contentPlaceHolder.getBorder().getStrokes().isEmpty()) {
             double borderWidth = contentPlaceHolder.snappedLeftInset();
             if (isRightEdge(x)) {
                 if (y < borderWidth) {
@@ -575,16 +575,11 @@ public class JFXDecorator extends VBox {
 
     /**
      * set customMaximize property
-     *
-     * @param customMaximize
      */
     public final void setCustomMaximize(final boolean customMaximize) {
         this.customMaximizeProperty().set(customMaximize);
     }
 
-    /**
-     * @param maximized
-     */
     public void setMaximized(boolean maximized) {
         if (this.maximized != maximized) {
             Platform.runLater(() -> {
@@ -595,8 +590,6 @@ public class JFXDecorator extends VBox {
 
     /**
      * will change the decorator content
-     *
-     * @param content
      */
     public void setContent(Node content) {
         this.contentPlaceHolder.getChildren().setAll(content);
@@ -605,7 +598,6 @@ public class JFXDecorator extends VBox {
     /**
      * will set the title
      *
-     * @param text
      * @deprecated Use {@link JFXDecorator#setTitle(java.lang.String)} instead.
      */
     public void setText(String text) {

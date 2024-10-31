@@ -94,7 +94,7 @@ public class JFXPasswordField extends JFXTextField implements IFXLabelFloatContr
             return;
         }
         final String selectedText = getSelectedText();
-        if (selectedText.length() > 0) {
+        if (!selectedText.isEmpty()) {
             final ClipboardContent content = new ClipboardContent();
             content.putString(selectedText);
             Clipboard.getSystemClipboard().setContent(content);
@@ -134,7 +134,7 @@ public class JFXPasswordField extends JFXTextField implements IFXLabelFloatContr
     /**
      * wrapper for validation properties / methods
      */
-    private ValidationControl validationControl = new ValidationControl(this);
+    private final ValidationControl validationControl = new ValidationControl(this);
 
     @Override
     public ValidatorBase getActiveValidator() {
@@ -166,7 +166,7 @@ public class JFXPasswordField extends JFXTextField implements IFXLabelFloatContr
         validationControl.resetValidation();
     }
 
-    private BooleanProperty maskedText = new SimpleBooleanProperty(true);
+    private final BooleanProperty maskedText = new SimpleBooleanProperty(true);
 
     public boolean isMaskedText() {
         return maskedText.get();

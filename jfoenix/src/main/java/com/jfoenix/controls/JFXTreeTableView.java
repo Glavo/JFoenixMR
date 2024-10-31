@@ -192,7 +192,7 @@ public class JFXTreeTableView<S extends RecursiveTreeObject<S>> extends TreeTabl
 
     // Allows for multiple column Grouping based on the order of the TreeTableColumns
     // in this observableArrayList.
-    private ObservableList<TreeTableColumn<S, ?>> groupOrder = FXCollections.observableArrayList();
+    private final ObservableList<TreeTableColumn<S, ?>> groupOrder = FXCollections.observableArrayList();
 
     final ObservableList<TreeTableColumn<S, ?>> getGroupOrder() {
         return groupOrder;
@@ -214,14 +214,12 @@ public class JFXTreeTableView<S extends RecursiveTreeObject<S>> extends TreeTabl
     /**
      * this is a blocking method so it should not be called from the ui thread,
      * it will regroup the tree table view
-     *
-     * @param treeTableColumns
      */
     public void group(TreeTableColumn<S, ?>... treeTableColumns) {
         try {
             lock.lock();
             // init groups map
-            if (groupOrder.size() == 0) {
+            if (groupOrder.isEmpty()) {
                 groups = new HashMap<>();
             }
             try {
@@ -260,13 +258,11 @@ public class JFXTreeTableView<S extends RecursiveTreeObject<S>> extends TreeTabl
     /**
      * this is a blocking method so it should not be called from the ui thread,
      * it will ungroup the tree table view
-     *
-     * @param treeTableColumns
      */
     public void unGroup(TreeTableColumn<S, ?>... treeTableColumns) {
         try {
             lock.lock();
-            if (groupOrder.size() > 0) {
+            if (!groupOrder.isEmpty()) {
                 groupOrder.removeAll(treeTableColumns);
                 List<TreeTableColumn<S, ?>> grouped = new ArrayList<>(groupOrder);
                 JFXUtilities.runInFXAndWait(() -> {
@@ -394,7 +390,7 @@ public class JFXTreeTableView<S extends RecursiveTreeObject<S>> extends TreeTabl
             });
     }
 
-    private Runnable filterRunnable = () -> {
+    private final Runnable filterRunnable = () -> {
         if (originalRoot == null) {
             originalRoot = getRoot();
         }
@@ -428,7 +424,7 @@ public class JFXTreeTableView<S extends RecursiveTreeObject<S>> extends TreeTabl
         }
     }
 
-    private ObjectProperty<Predicate<TreeItem<S>>> predicate = new SimpleObjectProperty<>((TreeItem<S> t) -> true);
+    private final ObjectProperty<Predicate<TreeItem<S>>> predicate = new SimpleObjectProperty<>((TreeItem<S> t) -> true);
 
     public final ObjectProperty<Predicate<TreeItem<S>>> predicateProperty() {
         return this.predicate;
@@ -442,7 +438,7 @@ public class JFXTreeTableView<S extends RecursiveTreeObject<S>> extends TreeTabl
         this.predicateProperty().set(predicate);
     }
 
-    private IntegerProperty currentItemsCount = new SimpleIntegerProperty(0);
+    private final IntegerProperty currentItemsCount = new SimpleIntegerProperty(0);
     private Map<Object, Map<Object, ?>> groups;
 
     /**

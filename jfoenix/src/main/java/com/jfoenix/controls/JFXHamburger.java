@@ -73,8 +73,6 @@ public class JFXHamburger extends VBox {
 
     /**
      * set a specified {@link HamburgerTransition}
-     *
-     * @param animation
      */
     public void setAnimation(Transition animation) {
         this.animation = ((HamburgerTransition) animation).getAnimation(this);

@@ -89,7 +89,7 @@ public class JFXPopup extends PopupControl {
      *                                                                         *
      **************************************************************************/
 
-    private ObjectProperty<Region> popupContent = new SimpleObjectProperty<>(new Pane());
+    private final ObjectProperty<Region> popupContent = new SimpleObjectProperty<>(new Pane());
 
     public final ObjectProperty<Region> popupContentProperty() {
         return this.popupContent;

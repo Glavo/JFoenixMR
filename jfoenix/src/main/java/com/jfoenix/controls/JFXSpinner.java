@@ -91,7 +91,7 @@ public class JFXSpinner extends ProgressIndicator {
     /**
      * specifies the radius of the spinner node, by default it's set to -1 (USE_COMPUTED_SIZE)
      */
-    private StyleableDoubleProperty radius = new SimpleStyleableDoubleProperty(StyleableProperties.RADIUS,
+    private final StyleableDoubleProperty radius = new SimpleStyleableDoubleProperty(StyleableProperties.RADIUS,
         JFXSpinner.this,
         "radius",
         Region.USE_COMPUTED_SIZE);
@@ -111,7 +111,7 @@ public class JFXSpinner extends ProgressIndicator {
     /**
      * specifies from which angle the spinner should start spinning
      */
-    private StyleableDoubleProperty startingAngle = new SimpleStyleableDoubleProperty(StyleableProperties.STARTING_ANGLE,
+    private final StyleableDoubleProperty startingAngle = new SimpleStyleableDoubleProperty(StyleableProperties.STARTING_ANGLE,
         JFXSpinner.this,
         "starting_angle",
         360 - Math.random() * 720);

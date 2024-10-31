@@ -145,8 +145,8 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
         return nodeConverter;
     }
 
-    private ObjectProperty<NodeConverter<T>> nodeConverter = new SimpleObjectProperty<>(this, "nodeConverter",
-        JFXComboBox.<T>defaultNodeConverter());
+    private final ObjectProperty<NodeConverter<T>> nodeConverter = new SimpleObjectProperty<>(this, "nodeConverter",
+        JFXComboBox.defaultNodeConverter());
 
     public final void setNodeConverter(NodeConverter<T> value) {
         nodeConverterProperty().set(value);
@@ -234,7 +234,7 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
     /**
      * wrapper for validation properties / methods
      */
-    private ValidationControl validationControl = new ValidationControl(this);
+    private final ValidationControl validationControl = new ValidationControl(this);
 
     @Override
     public ValidatorBase getActiveValidator() {
@@ -275,7 +275,7 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
     /**
      * set true to show a float the prompt text when focusing the field
      */
-    private StyleableBooleanProperty labelFloat = new SimpleStyleableBooleanProperty(StyleableProperties.LABEL_FLOAT,
+    private final StyleableBooleanProperty labelFloat = new SimpleStyleableBooleanProperty(StyleableProperties.LABEL_FLOAT,
         JFXComboBox.this,
         "lableFloat",
         false);
@@ -295,7 +295,7 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
     /**
      * default color used when the field is unfocused
      */
-    private StyleableObjectProperty<Paint> unFocusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNFOCUS_COLOR,
+    private final StyleableObjectProperty<Paint> unFocusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNFOCUS_COLOR,
         JFXComboBox.this,
         "unFocusColor",
         Color.rgb(77,
@@ -317,7 +317,7 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
     /**
      * default color used when the field is focused
      */
-    private StyleableObjectProperty<Paint> focusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.FOCUS_COLOR,
+    private final StyleableObjectProperty<Paint> focusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.FOCUS_COLOR,
         JFXComboBox.this,
         "focusColor",
         Color.valueOf("#4059A9"));
@@ -338,7 +338,7 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
     /**
      * disable animation on validation
      */
-    private StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
+    private final StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
         JFXComboBox.this,
         "disableAnimation",
         false);
@@ -403,8 +403,8 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
             }
         };
 
-        private static final CssMetaData<JFXComboBox, Boolean> DISABLE_ANIMATION =
-            new CssMetaData<JFXComboBox, Boolean>("-jfx-disable-animation",
+        private static final CssMetaData<JFXComboBox<?>, Boolean> DISABLE_ANIMATION =
+            new CssMetaData<JFXComboBox<?>, Boolean>("-jfx-disable-animation",
                 BooleanConverter.getInstance(), false) {
                 @Override
                 public boolean isSettable(JFXComboBox control) {

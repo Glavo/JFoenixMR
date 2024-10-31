@@ -329,7 +329,7 @@ public class JFXAlert<R> extends Dialog<R> {
      * specify the animation when showing / hiding the dialog
      * by default it's set to {@link JFXAlertAnimation#CENTER_ANIMATION}
      */
-    private ObjectProperty<JFXAlertAnimation> animation = new SimpleObjectProperty<>
+    private final ObjectProperty<JFXAlertAnimation> animation = new SimpleObjectProperty<>
         (JFXAlertAnimation.CENTER_ANIMATION);
 
     public JFXAlertAnimation getAnimation() {
@@ -348,7 +348,7 @@ public class JFXAlert<R> extends Dialog<R> {
         contentContainer.setPrefSize(prefWidth, prefHeight);
     }
 
-    private BooleanProperty hideOnEscape = new SimpleBooleanProperty(this, "hideOnEscape", true);
+    private final BooleanProperty hideOnEscape = new SimpleBooleanProperty(this, "hideOnEscape", true);
 
     public final void setHideOnEscape(boolean value) {
         hideOnEscape.set(value);

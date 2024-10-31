@@ -38,9 +38,9 @@ import javafx.scene.control.Control;
  */
 class ValidationControl implements IFXValidatableControl {
 
-    private ReadOnlyObjectWrapper<ValidatorBase> activeValidator = new ReadOnlyObjectWrapper<>();
+    private final ReadOnlyObjectWrapper<ValidatorBase> activeValidator = new ReadOnlyObjectWrapper<>();
 
-    private Control control;
+    private final Control control;
 
     public ValidationControl(Control control) {
         this.control = control;
@@ -64,7 +64,7 @@ class ValidationControl implements IFXValidatableControl {
      * list of validators that will validate the text value upon calling
      * {{@link #validate()}
      */
-    private ObservableList<ValidatorBase> validators = FXCollections.observableArrayList();
+    private final ObservableList<ValidatorBase> validators = FXCollections.observableArrayList();
 
     @Override
     public ObservableList<ValidatorBase> getValidators() {

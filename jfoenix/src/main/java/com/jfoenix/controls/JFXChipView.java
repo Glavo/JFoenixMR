@@ -64,6 +64,7 @@ public class JFXChipView<T> extends Control {
                 return t == null ? null : t.toString();
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public T fromString(String string) {
                 return (T) string;
@@ -151,7 +152,7 @@ public class JFXChipView<T> extends Control {
     /**
      * The prompt text to display in the TextArea.
      */
-    private StringProperty promptText = new SimpleStringProperty(this, "promptText", "");
+    private final StringProperty promptText = new SimpleStringProperty(this, "promptText", "");
 
     public final StringProperty promptTextProperty() {
         return promptText;
@@ -180,7 +181,7 @@ public class JFXChipView<T> extends Control {
         autoCompletePopup.setSuggestionsCellFactory(factory);
     }
 
-    private ObjectProperty<BiPredicate<T, String>> predicate = new SimpleObjectProperty<>(
+    private final ObjectProperty<BiPredicate<T, String>> predicate = new SimpleObjectProperty<>(
         (item, text) -> {
             StringConverter<T> converter = getConverter();
             String itemString = converter != null ? converter.toString(item) : item.toString();
@@ -204,7 +205,7 @@ public class JFXChipView<T> extends Control {
     /**
      * The list of selected chips.
      */
-    private ObservableList<T> chips = FXCollections.observableArrayList();
+    private final ObservableList<T> chips = FXCollections.observableArrayList();
 
     public ObservableList<T> getChips() {
         return chips;
@@ -218,7 +219,7 @@ public class JFXChipView<T> extends Control {
      * the input may be retrieved via the property.
      */
 
-    private ObjectProperty<StringConverter<T>> converter =
+    private final ObjectProperty<StringConverter<T>> converter =
         new SimpleObjectProperty<StringConverter<T>>(this, "converter", JFXChipView.defaultStringConverter());
 
     public ObjectProperty<StringConverter<T>> converterProperty() {

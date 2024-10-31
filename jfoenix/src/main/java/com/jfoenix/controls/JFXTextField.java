@@ -100,7 +100,7 @@ public class JFXTextField extends TextField implements IFXLabelFloatControl {
     /**
      * wrapper for validation properties / methods
      */
-    protected ValidationControl validationControl = new ValidationControl(this);
+    ValidationControl validationControl = new ValidationControl(this);
 
     @Override
     public ValidatorBase getActiveValidator() {
@@ -135,7 +135,7 @@ public class JFXTextField extends TextField implements IFXLabelFloatControl {
     /**
      * An optional leading icon for the TextField
      */
-    private ObjectProperty<Node> leadingGraphic = new SimpleObjectProperty<>();
+    private final ObjectProperty<Node> leadingGraphic = new SimpleObjectProperty<>();
 
     public Node getLeadingGraphic() {
         return leadingGraphic.get();
@@ -152,7 +152,7 @@ public class JFXTextField extends TextField implements IFXLabelFloatControl {
     /**
      * An optional trailing icon for the TextField
      */
-    private ObjectProperty<Node> trailingGraphic = new SimpleObjectProperty<>();
+    private final ObjectProperty<Node> trailingGraphic = new SimpleObjectProperty<>();
 
     public Node getTrailingGraphic() {
         return trailingGraphic.get();
@@ -185,7 +185,7 @@ public class JFXTextField extends TextField implements IFXLabelFloatControl {
     /**
      * set true to show a float the prompt text when focusing the field
      */
-    private StyleableBooleanProperty labelFloat = new SimpleStyleableBooleanProperty(StyleableProperties.LABEL_FLOAT,
+    private final StyleableBooleanProperty labelFloat = new SimpleStyleableBooleanProperty(StyleableProperties.LABEL_FLOAT,
         JFXTextField.this,
         "lableFloat",
         false);
@@ -208,7 +208,7 @@ public class JFXTextField extends TextField implements IFXLabelFloatControl {
     /**
      * default color used when the field is unfocused
      */
-    private StyleableObjectProperty<Paint> unFocusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNFOCUS_COLOR,
+    private final StyleableObjectProperty<Paint> unFocusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNFOCUS_COLOR,
         JFXTextField.this,
         "unFocusColor",
         Color.rgb(77,
@@ -256,7 +256,7 @@ public class JFXTextField extends TextField implements IFXLabelFloatControl {
     /**
      * disable animation on validation
      */
-    private StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
+    private final StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
         JFXTextField.this,
         "disableAnimation",
         false);

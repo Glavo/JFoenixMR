@@ -49,7 +49,7 @@ import java.util.List;
 @DefaultProperty(value = "content")
 public class JFXDrawersStack extends Region {
 
-    private List<JFXDrawer> drawers = new ArrayList<>();
+    private final List<JFXDrawer> drawers = new ArrayList<>();
     private Node content;
     private boolean performingLayout;
 
@@ -216,8 +216,7 @@ public class JFXDrawersStack extends Region {
      */
     public List<Side> getOpenedDrawersOrder() {
         List<Side> order = new ArrayList<>();
-        for (int i = 0, drawersSize = drawers.size(); i < drawersSize; i++) {
-            final JFXDrawer jfxDrawer = drawers.get(i);
+        for (final JFXDrawer jfxDrawer : drawers) {
             if (jfxDrawer.isOpened()) {
                 order.add(Side.valueOf(jfxDrawer.getDirection().toString()));
             }

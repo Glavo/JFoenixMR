@@ -106,7 +106,7 @@ public class JFXCheckBox extends CheckBox {
     /**
      * checkbox color property when selected
      */
-    private StyleableObjectProperty<Paint> checkedColor = new SimpleStyleableObjectProperty<>(StyleableProperties.CHECKED_COLOR,
+    private final StyleableObjectProperty<Paint> checkedColor = new SimpleStyleableObjectProperty<>(StyleableProperties.CHECKED_COLOR,
         JFXCheckBox.this,
         "checkedColor",
         Color.valueOf(
@@ -127,7 +127,7 @@ public class JFXCheckBox extends CheckBox {
     /**
      * checkbox color property when not selected
      */
-    private StyleableObjectProperty<Paint> unCheckedColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNCHECKED_COLOR,
+    private final StyleableObjectProperty<Paint> unCheckedColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNCHECKED_COLOR,
         JFXCheckBox.this,
         "unCheckedColor",
         Color.valueOf(
@@ -148,7 +148,7 @@ public class JFXCheckBox extends CheckBox {
     /**
      * Disable the visual indicator for focus.
      */
-    private StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
+    private final StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
         JFXCheckBox.this,
         "disableVisualFocus",
         false);

@@ -155,7 +155,7 @@ public class JFXScrollPane extends StackPane {
 //                header.setTranslateY(-maxHeight);
             } else {
                 double dy = ty - initY;
-                topBar.setTranslateY(-dy <= minHeight ? -dy : minHeight);
+                topBar.setTranslateY(Math.min(-dy, minHeight));
 
                 double oldTy = oldSceneTransform.getTy();
                 double diff = oldTy - ty;

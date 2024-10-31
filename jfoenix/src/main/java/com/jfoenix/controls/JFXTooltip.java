@@ -52,15 +52,13 @@ import javafx.util.Duration;
  */
 public class JFXTooltip extends Tooltip {
 
-    private static TooltipBehavior BEHAVIOR = new TooltipBehavior(
+    private static final TooltipBehavior BEHAVIOR = new TooltipBehavior(
         Duration.millis(650),
         Duration.millis(1500),
         Duration.millis(200));
 
     /**
      * updates the hover duration for {@link JFXTooltip} behavior
-     *
-     * @param duration
      */
     public static void setHoverDelay(Duration duration) {
         BEHAVIOR.setHoverDelay(duration == null ? Duration.millis(650) : duration);
@@ -68,8 +66,6 @@ public class JFXTooltip extends Tooltip {
 
     /**
      * updates the visible duration for {@link JFXTooltip} behavior
-     *
-     * @param duration
      */
     public static void setVisibleDuration(Duration duration) {
         BEHAVIOR.setVisibleDuration(duration == null ? Duration.millis(1500) : duration);
@@ -77,8 +73,6 @@ public class JFXTooltip extends Tooltip {
 
     /**
      * updates the left duration for {@link JFXTooltip} behavior
-     *
-     * @param duration
      */
     public static void setLeftDelay(Duration duration) {
         BEHAVIOR.setLeftDelay(duration == null ? Duration.millis(200) : duration);
@@ -86,9 +80,6 @@ public class JFXTooltip extends Tooltip {
 
     /**
      * Associates the given {@link JFXTooltip} tooltip to the given node.
-     *
-     * @param node
-     * @param tooltip
      */
     public static void install(Node node, JFXTooltip tooltip) {
         BEHAVIOR.install(node, tooltip);
@@ -97,9 +88,6 @@ public class JFXTooltip extends Tooltip {
     /**
      * Associates the given {@link JFXTooltip} tooltip to the given node.
      * The tooltip will be shown according to the given {@link Pos} pos
-     *
-     * @param node
-     * @param tooltip
      */
     public static void install(Node node, JFXTooltip tooltip, Pos pos) {
         tooltip.setPos(pos);
@@ -108,8 +96,6 @@ public class JFXTooltip extends Tooltip {
 
     /**
      * Removes {@link JFXTooltip} tooltip from the given node
-     *
-     * @param node
      */
     public static void uninstall(Node node) {
         BEHAVIOR.uninstall(node);
@@ -118,7 +104,7 @@ public class JFXTooltip extends Tooltip {
     private Node root = null;
     private boolean hiding = false;
 
-    private JFXAnimationTimer animation = new JFXAnimationTimer(
+    private final JFXAnimationTimer animation = new JFXAnimationTimer(
         JFXKeyFrame.builder().setDuration(Duration.millis(150))
             .setAnimateCondition(() -> !hiding)
             .setKeyValues(JFXKeyValue.builder()
@@ -298,7 +284,6 @@ public class JFXTooltip extends Tooltip {
     }
 
     /**
-     * @param ownerNode
      * @param sceneBounds is the owner node scene Bounds
      * @return anchorX that represents the local minX of owner node
      */
@@ -308,7 +293,6 @@ public class JFXTooltip extends Tooltip {
     }
 
     /**
-     * @param ownerNode
      * @param sceneBounds is the owner node scene Bounds
      * @return anchorY that represents the local minY of owner node
      */
@@ -386,10 +370,10 @@ public class JFXTooltip extends Tooltip {
 
     private static class TooltipBehavior {
 
-        private static String TOOLTIP_PROP = "jfoenix-tooltip";
-        private Timeline hoverTimer = new Timeline();
-        private Timeline visibleTimer = new Timeline();
-        private Timeline leftTimer = new Timeline();
+        private static final String TOOLTIP_PROP = "jfoenix-tooltip";
+        private final Timeline hoverTimer = new Timeline();
+        private final Timeline visibleTimer = new Timeline();
+        private final Timeline leftTimer = new Timeline();
         /**
          * the currently hovered node
          */
@@ -484,9 +468,9 @@ public class JFXTooltip extends Tooltip {
                 uninstall(hoveredNode);
             }
         };
-        private WeakEventHandler<MouseEvent> weakMoveHandler = new WeakEventHandler<>(moveHandler);
+        private final WeakEventHandler<MouseEvent> weakMoveHandler = new WeakEventHandler<>(moveHandler);
 
-        private EventHandler<MouseEvent> exitHandler = (MouseEvent event) -> {
+        private final EventHandler<MouseEvent> exitHandler = (MouseEvent event) -> {
             // stop running hover timer as the mouse exited the node
             if (hoverTimer.getStatus() == Timeline.Status.RUNNING) {
                 hoverTimer.stop();
@@ -499,10 +483,10 @@ public class JFXTooltip extends Tooltip {
             hoveredNode = null;
             nextTooltip = null;
         };
-        private WeakEventHandler<MouseEvent> weakExitHandler = new WeakEventHandler<>(exitHandler);
+        private final WeakEventHandler<MouseEvent> weakExitHandler = new WeakEventHandler<>(exitHandler);
 
         // if mouse is pressed then stop all timers / clear all fields
-        private EventHandler<MouseEvent> pressedHandler = (MouseEvent event) -> {
+        private final EventHandler<MouseEvent> pressedHandler = (MouseEvent event) -> {
             // stop timers
             hoverTimer.stop();
             visibleTimer.stop();

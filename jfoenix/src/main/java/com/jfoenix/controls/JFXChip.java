@@ -29,7 +29,7 @@ public class JFXChip<T> extends Region {
 
     protected final JFXChipView<T> view;
     // --- item
-    private ObjectProperty<T> item = new SimpleObjectProperty<T>(this, "item");
+    private final ObjectProperty<T> item = new SimpleObjectProperty<T>(this, "item");
 
     public JFXChip(JFXChipView<T> view, T item) {
         this.view = view;

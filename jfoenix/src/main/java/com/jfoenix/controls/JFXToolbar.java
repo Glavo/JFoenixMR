@@ -37,8 +37,8 @@ import javafx.scene.layout.HBox;
  */
 public class JFXToolbar extends BorderPane {
 
-    private HBox leftBox = new HBox();
-    private HBox rightBox = new HBox();
+    private final HBox leftBox = new HBox();
+    private final HBox rightBox = new HBox();
 
     /**
      * creates empty tool bar

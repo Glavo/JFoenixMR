@@ -75,7 +75,7 @@ public class JFXRippler extends StackPane {
         CIRCLE, RECT, FIT
     }
 
-    protected RippleGenerator rippler;
+    RippleGenerator rippler;
     protected Pane ripplerPane;
     protected Node control;
 
@@ -83,7 +83,7 @@ public class JFXRippler extends StackPane {
 
     private boolean enabled = true;
     private boolean forceOverlay = false;
-    private Interpolator rippleInterpolator = Interpolator.SPLINE(0.0825,
+    private final Interpolator rippleInterpolator = Interpolator.SPLINE(0.0825,
         0.3025,
         0.0875,
         0.9975); //0.1, 0.54, 0.28, 0.95);
@@ -97,8 +97,6 @@ public class JFXRippler extends StackPane {
 
     /**
      * creates a rippler for the specified control
-     *
-     * @param control
      */
     public JFXRippler(Node control) {
         this(control, RipplerMask.RECT, RipplerPos.FRONT);
@@ -107,7 +105,6 @@ public class JFXRippler extends StackPane {
     /**
      * creates a rippler for the specified control
      *
-     * @param control
      * @param pos     can be either FRONT/BACK (position the ripple effect infront of or behind the control)
      */
     public JFXRippler(Node control, RipplerPos pos) {
@@ -117,7 +114,6 @@ public class JFXRippler extends StackPane {
     /**
      * creates a rippler for the specified control and apply the specified mask to it
      *
-     * @param control
      * @param mask    can be either rectangle/cricle
      */
     public JFXRippler(Node control, RipplerMask mask) {
@@ -127,7 +123,6 @@ public class JFXRippler extends StackPane {
     /**
      * creates a rippler for the specified control, mask and position.
      *
-     * @param control
      * @param mask    can be either rectangle/cricle
      * @param pos     can be either FRONT/BACK (position the ripple effect infront of or behind the control)
      */
@@ -318,7 +313,6 @@ public class JFXRippler extends StackPane {
     /**
      * show/hide the ripple overlay
      *
-     * @param visible
      * @param forceOverlay used to hold the overlay after ripple action
      */
     public void setOverlayVisible(boolean visible, boolean forceOverlay) {
@@ -376,10 +370,10 @@ public class JFXRippler extends StackPane {
         private double generatorCenterX = 0;
         private double generatorCenterY = 0;
         private OverLayRipple overlayRect;
-        private AtomicBoolean generating = new AtomicBoolean(false);
+        private final AtomicBoolean generating = new AtomicBoolean(false);
         private boolean cacheRipplerClip = false;
         private boolean resetClip = false;
-        private Queue<Ripple> ripplesQueue = new LinkedList<Ripple>();
+        private final Queue<Ripple> ripplesQueue = new LinkedList<>();
 
         RippleGenerator() {
             // improve in performance, by preventing
@@ -613,7 +607,7 @@ public class JFXRippler extends StackPane {
      * the ripple recenter property, by default it's false.
      * if true the ripple effect will show gravitational pull to the center of its control
      */
-    private StyleableObjectProperty<Boolean> ripplerRecenter = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<Boolean> ripplerRecenter = new SimpleStyleableObjectProperty<>(
         StyleableProperties.RIPPLER_RECENTER,
         JFXRippler.this,
         "ripplerRecenter",
@@ -634,7 +628,7 @@ public class JFXRippler extends StackPane {
     /**
      * the ripple radius size, by default it will be automatically computed.
      */
-    private StyleableObjectProperty<Number> ripplerRadius = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<Number> ripplerRadius = new SimpleStyleableObjectProperty<>(
         StyleableProperties.RIPPLER_RADIUS,
         JFXRippler.this,
         "ripplerRadius",
@@ -678,7 +672,7 @@ public class JFXRippler extends StackPane {
      * mask property used for clipping the rippler.
      * can be either CIRCLE/RECT
      */
-    private StyleableObjectProperty<RipplerMask> maskType = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<RipplerMask> maskType = new SimpleStyleableObjectProperty<>(
         StyleableProperties.MASK_TYPE,
         JFXRippler.this,
         "maskType",
@@ -701,7 +695,7 @@ public class JFXRippler extends StackPane {
      * the ripple disable, by default it's false.
      * if true the ripple effect will be hidden
      */
-    private StyleableBooleanProperty ripplerDisabled = new SimpleStyleableBooleanProperty(
+    private final StyleableBooleanProperty ripplerDisabled = new SimpleStyleableBooleanProperty(
         StyleableProperties.RIPPLER_DISABLED,
         JFXRippler.this,
         "ripplerDisabled",

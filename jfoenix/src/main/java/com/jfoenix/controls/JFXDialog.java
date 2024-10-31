@@ -132,11 +132,6 @@ public class JFXDialog extends StackPane {
      * <li>BOTTOM</li>
      * <li>LEFT</li>
      * </ul>
-     *
-     * @param dialogContainer
-     * @param content
-     * @param transitionType
-     * @param overlayClose
      */
     public JFXDialog(StackPane dialogContainer, Region content, DialogTransition transitionType, boolean overlayClose) {
         setOverlayClose(overlayClose);
@@ -199,8 +194,6 @@ public class JFXDialog extends StackPane {
     /**
      * set the dialog container
      * Note: the dialog container must be StackPane, its the container for the dialog to be shown in.
-     *
-     * @param dialogContainer
      */
     public void setDialogContainer(StackPane dialogContainer) {
         if (dialogContainer != null) {
@@ -221,8 +214,6 @@ public class JFXDialog extends StackPane {
 
     /**
      * set the content of the dialog
-     *
-     * @param content
      */
     public void setContent(Region content) {
         if (content != null) {
@@ -234,10 +225,8 @@ public class JFXDialog extends StackPane {
 
     /**
      * indicates whether the dialog will close when clicking on the overlay or not
-     *
-     * @return
      */
-    private BooleanProperty overlayClose = new SimpleBooleanProperty(true);
+    private final BooleanProperty overlayClose = new SimpleBooleanProperty(true);
 
     public final BooleanProperty overlayCloseProperty() {
         return this.overlayClose;
@@ -257,7 +246,7 @@ public class JFXDialog extends StackPane {
      * this is recommended if the content behind the dialog will not change during the showing
      * period
      */
-    private BooleanProperty cacheContainer = new SimpleBooleanProperty(false);
+    private final BooleanProperty cacheContainer = new SimpleBooleanProperty(false);
 
     public boolean isCacheContainer() {
         return cacheContainer.get();
@@ -273,8 +262,6 @@ public class JFXDialog extends StackPane {
 
     /**
      * it will show the dialog in the specified container
-     *
-     * @param dialogContainer
      */
     public void show(StackPane dialogContainer) {
         this.setDialogContainer(dialogContainer);
@@ -548,7 +535,7 @@ public class JFXDialog extends StackPane {
      * <li>NONE</li>
      * </ul>
      */
-    private StyleableObjectProperty<DialogTransition> transitionType = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<DialogTransition> transitionType = new SimpleStyleableObjectProperty<>(
         StyleableProperties.DIALOG_TRANSITION,
         JFXDialog.this,
         "dialogTransition",
@@ -644,7 +631,7 @@ public class JFXDialog extends StackPane {
     }
 
 
-    private ObjectProperty<EventHandler<? super JFXDialogEvent>> onDialogOpenedProperty = new ObjectPropertyBase<EventHandler<? super JFXDialogEvent>>() {
+    private final ObjectProperty<EventHandler<? super JFXDialogEvent>> onDialogOpenedProperty = new ObjectPropertyBase<EventHandler<? super JFXDialogEvent>>() {
         @Override
         protected void invalidated() {
             setEventHandler(JFXDialogEvent.OPENED, get());

@@ -108,7 +108,7 @@ public class JFXButton extends Button {
     /**
      * the ripple color property of JFXButton.
      */
-    private ObjectProperty<Paint> ripplerFill = new SimpleObjectProperty<>(null);
+    private final ObjectProperty<Paint> ripplerFill = new SimpleObjectProperty<>(null);
 
     public final ObjectProperty<Paint> ripplerFillProperty() {
         return this.ripplerFill;
@@ -153,7 +153,7 @@ public class JFXButton extends Button {
      * - flat : only shows the ripple effect upon clicking the button
      * - raised : shows the ripple effect and change in depth upon clicking the button
      */
-    private StyleableObjectProperty<ButtonType> buttonType = new SimpleStyleableObjectProperty<>(
+    private final StyleableObjectProperty<ButtonType> buttonType = new SimpleStyleableObjectProperty<>(
         StyleableProperties.BUTTON_TYPE,
         JFXButton.this,
         "buttonType",
@@ -174,7 +174,7 @@ public class JFXButton extends Button {
     /**
      * Disable the visual indicator for focus
      */
-    private StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
+    private final StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS,
         JFXButton.this,
         "disableVisualFocus",
         false);

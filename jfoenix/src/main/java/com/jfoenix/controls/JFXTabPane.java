@@ -95,7 +95,7 @@ public class JFXTabPane extends TabPane {
     /**
      * disable animation on validation
      */
-    private StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(JFXTabPane.StyleableProperties.DISABLE_ANIMATION,
+    private final StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(JFXTabPane.StyleableProperties.DISABLE_ANIMATION,
         JFXTabPane.this,
         "disableAnimation",
         false);

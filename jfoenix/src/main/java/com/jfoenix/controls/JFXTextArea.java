@@ -92,7 +92,7 @@ public class JFXTextArea extends TextArea implements IFXLabelFloatControl {
     /**
      * wrapper for validation properties / methods
      */
-    protected ValidationControl validationControl = new ValidationControl(this);
+    ValidationControl validationControl = new ValidationControl(this);
 
     @Override
     public ValidatorBase getActiveValidator() {
@@ -141,7 +141,7 @@ public class JFXTextArea extends TextArea implements IFXLabelFloatControl {
     /**
      * set true to show a float the prompt text when focusing the field
      */
-    private StyleableBooleanProperty labelFloat = new SimpleStyleableBooleanProperty(StyleableProperties.LABEL_FLOAT,
+    private final StyleableBooleanProperty labelFloat = new SimpleStyleableBooleanProperty(StyleableProperties.LABEL_FLOAT,
         JFXTextArea.this, "lableFloat", false);
 
     public final StyleableBooleanProperty labelFloatProperty() {
@@ -159,7 +159,7 @@ public class JFXTextArea extends TextArea implements IFXLabelFloatControl {
     /**
      * default color used when the text area is unfocused
      */
-    private StyleableObjectProperty<Paint> unFocusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNFOCUS_COLOR,
+    private final StyleableObjectProperty<Paint> unFocusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.UNFOCUS_COLOR,
         JFXTextArea.this, "unFocusColor", Color.rgb(77, 77, 77));
 
     public Paint getUnFocusColor() {
@@ -177,7 +177,7 @@ public class JFXTextArea extends TextArea implements IFXLabelFloatControl {
     /**
      * default color used when the text area is focused
      */
-    private StyleableObjectProperty<Paint> focusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.FOCUS_COLOR,
+    private final StyleableObjectProperty<Paint> focusColor = new SimpleStyleableObjectProperty<>(StyleableProperties.FOCUS_COLOR,
         JFXTextArea.this,
         "focusColor",
         Color.valueOf("#4059A9"));
@@ -197,7 +197,7 @@ public class JFXTextArea extends TextArea implements IFXLabelFloatControl {
     /**
      * disable animation on validation
      */
-    private StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
+    private final StyleableBooleanProperty disableAnimation = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_ANIMATION,
         JFXTextArea.this,
         "disableAnimation",
         false);

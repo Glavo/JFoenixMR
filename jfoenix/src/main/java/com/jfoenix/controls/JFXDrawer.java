@@ -92,7 +92,7 @@ public class JFXDrawer extends StackPane {
      */
     public enum DrawerDirection {
         LEFT(1), RIGHT(-1), TOP(1), BOTTOM(-1);
-        private double numVal;
+        private final double numVal;
 
         DrawerDirection(double numVal) {
             this.numVal = numVal;
@@ -104,24 +104,24 @@ public class JFXDrawer extends StackPane {
     }
 
     // used to add custom user animation to drawer animation
-    private List<JFXKeyValue<?>> animatedValues = new ArrayList<>();
-    private HashMap<WritableValue<?>, JFXDrawerKeyValue<?>> initValues = new HashMap<>();
-    private HashMap<WritableValue<?>, Supplier<?>> currentValue = new HashMap<>();
+    private final List<JFXKeyValue<?>> animatedValues = new ArrayList<>();
+    private final HashMap<WritableValue<?>, JFXDrawerKeyValue<?>> initValues = new HashMap<>();
+    private final HashMap<WritableValue<?>, Supplier<?>> currentValue = new HashMap<>();
 
     // nodes
-    private StackPane overlayPane = new StackPane();
+    private final StackPane overlayPane = new StackPane();
     StackPane sidePane = new StackPane();
-    private StackPane content = new StackPane();
-    private StackPane contentHolder = new StackPane();
-    private Region paddingPane = new Region();
+    private final StackPane content = new StackPane();
+    private final StackPane contentHolder = new StackPane();
+    private final Region paddingPane = new Region();
 
     // animation
-    private Duration holdTime = Duration.seconds(0.2);
-    private PauseTransition holdTimer = new PauseTransition(holdTime);
-    private double initOffset = 30;
-    private DoubleProperty initTranslate = new SimpleDoubleProperty();
+    private final Duration holdTime = Duration.seconds(0.2);
+    private final PauseTransition holdTimer = new PauseTransition(holdTime);
+    private final double initOffset = 30;
+    private final DoubleProperty initTranslate = new SimpleDoubleProperty();
 
-    private double activeOffset = 20;
+    private final double activeOffset = 20;
     private double startMouse = -1;
     private double startTranslate = -1;
     private double startSize = -1;
@@ -133,7 +133,7 @@ public class JFXDrawer extends StackPane {
 
     // side pane size properties
     private DoubleProperty translateProperty = sidePane.translateXProperty();
-    private DoubleProperty defaultSizeProperty = new SimpleDoubleProperty();
+    private final DoubleProperty defaultSizeProperty = new SimpleDoubleProperty();
     private DoubleProperty maxSizeProperty = sidePane.maxWidthProperty();
     private DoubleProperty prefSizeProperty = sidePane.prefWidthProperty();
     private ReadOnlyDoubleProperty sizeProperty = sidePane.widthProperty();
@@ -141,7 +141,7 @@ public class JFXDrawer extends StackPane {
     // this is used to allow resizing the content of the drawer
     private DoubleProperty paddingSizeProperty = paddingPane.minWidthProperty();
 
-    private SimpleObjectProperty<DrawerDirection> directionProperty =
+    private final SimpleObjectProperty<DrawerDirection> directionProperty =
         new SimpleObjectProperty<>(DrawerDirection.LEFT);
 
     // add opening/closing action listeners
@@ -176,7 +176,7 @@ public class JFXDrawer extends StackPane {
     // used to cache the drawer size
     private double tempDrawerSize = getDefaultDrawerSize();
 
-    private Duration duration;
+    private final Duration duration;
     private JFXAnimationTimer translateTimer;
 
     public JFXDrawer() {
@@ -252,8 +252,8 @@ public class JFXDrawer extends StackPane {
             if (!e.isConsumed()) {
                 double size = 0;
                 long valid = 0;
-                for (int i = 0; i < callBacks.size(); i++) {
-                    if (!callBacks.get(i).call(null)) {
+                for (Callback<Void, Boolean> callBack : callBacks) {
+                    if (!callBack.call(null)) {
                         valid++;
                     }
                 }
@@ -263,7 +263,7 @@ public class JFXDrawer extends StackPane {
                 } else if (direction == DrawerDirection.BOTTOM) {
                     size = content.getHeight();
                 }
-                double eventPoint = 0;
+                double eventPoint;
                 if (direction == DrawerDirection.RIGHT
                     || direction == DrawerDirection.LEFT) {
                     eventPoint = e.getX();
@@ -449,7 +449,7 @@ public class JFXDrawer extends StackPane {
      *                                                                         *
      **************************************************************************/
 
-    private DoubleProperty miniDrawerSize = new SimpleDoubleProperty(-1);
+    private final DoubleProperty miniDrawerSize = new SimpleDoubleProperty(-1);
 
     public double getMiniDrawerSize() {
         return miniDrawerSize.get();
@@ -480,7 +480,7 @@ public class JFXDrawer extends StackPane {
         return getMiniDrawerSize() > 0;
     }
 
-    private ArrayList<Callback<Void, Boolean>> callBacks = new ArrayList<>();
+    private final ArrayList<Callback<Void, Boolean>> callBacks = new ArrayList<>();
 
     /**
      * the callbacks are used to add conditions to allow
@@ -492,8 +492,6 @@ public class JFXDrawer extends StackPane {
 
     /**
      * this method is only used in drawers stack component
-     *
-     * @param callback
      */
     void bringToFront(Callback<Void, Void> callback) {
         EventHandler<? super MouseEvent> eventFilter = Event::consume;
@@ -516,11 +514,7 @@ public class JFXDrawer extends StackPane {
             translateTimer.start();
         };
 
-        if (sizeProperty.get() > getDefaultDrawerSize()) {
-            tempDrawerSize = sizeProperty.get();
-        } else {
-            tempDrawerSize = getDefaultDrawerSize();
-        }
+        tempDrawerSize = Math.max(sizeProperty.get(), getDefaultDrawerSize());
         translateTo = initTranslate.get();
         translateTimer.setOnFinished(onFinished);
         getCachePolicy().cache(contentHolder);
@@ -720,22 +714,22 @@ public class JFXDrawer extends StackPane {
     }
 
 
-    private SimpleObjectProperty<CachePolicy> cachePolicy = new SimpleObjectProperty<>(CachePolicy.NONE);
+    private final SimpleObjectProperty<CachePolicy<Node>> cachePolicy = new SimpleObjectProperty<>(CachePolicy.NONE);
 
-    public CachePolicy getCachePolicy() {
+    public CachePolicy<Node> getCachePolicy() {
         return cachePolicy.get() == null ? CachePolicy.NONE : cachePolicy.get();
     }
 
-    public SimpleObjectProperty<CachePolicy> cachePolicyProperty() {
+    public SimpleObjectProperty<CachePolicy<Node>> cachePolicyProperty() {
         return cachePolicy;
     }
 
-    public void setCachePolicy(CachePolicy cachePolicy) {
+    public void setCachePolicy(CachePolicy<Node> cachePolicy) {
         this.cachePolicy.set(cachePolicy);
     }
 
 
-    private BooleanProperty overLayVisible = new SimpleBooleanProperty(true);
+    private final BooleanProperty overLayVisible = new SimpleBooleanProperty(true);
 
     public final BooleanProperty overLayVisibleProperty() {
         return this.overLayVisible;
@@ -791,7 +785,7 @@ public class JFXDrawer extends StackPane {
         onDrawerClosedProperty().set(onDrawerClosed);
     }
 
-    private ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerClosed = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
+    private final ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerClosed = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
         @Override
         protected void invalidated() {
             setEventHandler(JFXDrawerEvent.CLOSED, get());
@@ -821,7 +815,7 @@ public class JFXDrawer extends StackPane {
         this.onDrawerClosing.set(onDrawerClosing);
     }
 
-    private ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerClosing = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
+    private final ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerClosing = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
         @Override
         protected void invalidated() {
             setEventHandler(JFXDrawerEvent.CLOSING, get());
@@ -851,7 +845,7 @@ public class JFXDrawer extends StackPane {
         this.onDrawerOpened.set(onDrawerOpened);
     }
 
-    private ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerOpened = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
+    private final ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerOpened = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
         @Override
         protected void invalidated() {
             setEventHandler(JFXDrawerEvent.OPENED, get());
@@ -881,7 +875,7 @@ public class JFXDrawer extends StackPane {
         this.onDrawerOpening.set(onDrawerOpening);
     }
 
-    private ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerOpening = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
+    private final ObjectProperty<EventHandler<JFXDrawerEvent>> onDrawerOpening = new ObjectPropertyBase<EventHandler<JFXDrawerEvent>>() {
         @Override
         protected void invalidated() {
             setEventHandler(JFXDrawerEvent.OPENING, get());
@@ -904,7 +898,7 @@ public class JFXDrawer extends StackPane {
      *                                                                         *
      **************************************************************************/
 
-    private EventHandler<MouseEvent> mouseDragHandler = (mouseEvent) -> {
+    private final EventHandler<MouseEvent> mouseDragHandler = (mouseEvent) -> {
         if (!mouseEvent.isConsumed()) {
             mouseEvent.consume();
 
@@ -1012,7 +1006,7 @@ public class JFXDrawer extends StackPane {
     };
 
 
-    private EventHandler<MouseEvent> mousePressedHandler = (mouseEvent) -> {
+    private final EventHandler<MouseEvent> mousePressedHandler = (mouseEvent) -> {
         translateTimer.setOnFinished(null);
         translateTimer.stop();
         if (directionProperty.get() == DrawerDirection.RIGHT
@@ -1029,7 +1023,7 @@ public class JFXDrawer extends StackPane {
         }
     };
 
-    private EventHandler<MouseEvent> mouseReleasedHandler = (mouseEvent) -> {
+    private final EventHandler<MouseEvent> mouseReleasedHandler = (mouseEvent) -> {
         final double direction = directionProperty.get().doubleValue();
 
         if (prefSizeProperty.get() != USE_COMPUTED_SIZE) {
